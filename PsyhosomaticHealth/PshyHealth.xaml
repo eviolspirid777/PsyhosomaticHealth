@@ -1,0 +1,17 @@
+﻿<Window x:Class="PsyhosomaticHealth.PsyhHealth"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PsyhosomaticHealth"
+        mc:Ignorable="d"
+        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="NoResize">
+    <Grid>
+        <GroupBox Margin="0,10,624,370" Header="Вид деятельности" FontSize="14"  FontStyle="Italic">
+            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" MouseLeave="MouseLeave" Height="27"/>
+        </GroupBox>
+        <TextBlock x:Name="textBlock" Width="600" Margin="190,10,10,10" FontSize="16"/>
+        <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="118"></StackPanel>
+        <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick"/>
+    </Grid>
+</Window>

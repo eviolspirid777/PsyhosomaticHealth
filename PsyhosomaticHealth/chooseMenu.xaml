@@ -1,0 +1,18 @@
+﻿<Window x:Class="PsyhosomaticHealth.chooseMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PsyhosomaticHealth"
+        mc:Ignorable="d"
+        Title="chooseMenu" Height="450" Width="800">
+    <Grid x:Name="chseMenu" >
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,82,0,0" Width="800" Height="352" >
+            <Button Height="52" Width="198" Content="Базовая модель" FontSize="16" Background="#549438" Click="baseClick"/>
+            <Canvas Height="20"/>
+            <Button Height="52" Width="198" Content="Продвинутая модель" FontSize="16" Background="#549438" Click="advancedClick"/>
+            <Canvas Height="20"/>
+            <Button Height="52" Width="198" Content="Помощь" FontSize="16" Background="#549438" Click="helpClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
