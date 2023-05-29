@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "FileWork/1.0.0": {
+        "dependencies": {
+          "Disciplines": "1.0.0"
+        },
+        "runtime": {
+          "FileWork.dll": {}
+        }
+      },
+      "Disciplines/1.0.0": {
+        "runtime": {
+          "Disciplines.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FileWork/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Disciplines/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

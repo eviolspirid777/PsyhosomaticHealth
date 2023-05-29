@@ -7,11 +7,27 @@
         mc:Ignorable="d"
         Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="NoResize">
     <Grid>
-        <GroupBox Margin="0,10,624,370" Header="Вид деятельности" FontSize="14"  FontStyle="Italic">
-            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" MouseLeave="MouseLeave" Height="27"/>
+    <Menu>
+            <MenuItem Header="Файл">
+                <MenuItem x:Name="newFile" Header="Новый" Click="newFile_Click"/>
+                <MenuItem x:Name="openFile" Header="Открыть" Click="openFile_Click"/>
+                <MenuItem x:Name="saveFile" Header="Сохранить" IsEnabled="False"/>
+                <MenuItem x:Name="saveFileAs" Header="Сохранить как" IsEnabled="False"/>
+                <MenuItem x:Name="printFile" Header="Печать" IsEnabled="False"/>
+                <MenuItem x:Name="closeApp" Header="Выход"/>
+            </MenuItem>
+            <MenuItem x:Name="typesDiscipline" Header="Виды Деятельности" IsEnabled="True">
+                <MenuItem x:Name="addDiscipline" Header="Добавить" Click="addDiscipline_Click"/>
+                <MenuItem x:Name="changeDiscipline" Header="Изменить"/>
+            </MenuItem>
+            <MenuItem x:Name="help" Header="Справка"/>
+        </Menu>
+        <GroupBox x:Name="setDiscipline" Margin="0,20,624,360" Header="Вид Деятельности" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
+            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" MouseLeave="MouseLeave"/>
         </GroupBox>
-        <TextBlock x:Name="textBlock" Width="600" Margin="190,10,10,10" FontSize="16"/>
+        <TextBlock x:Name="textBlock" Width="600" Margin="200,20,20,74" FontSize="16" TextWrapping="Wrap"/>
         <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="118"></StackPanel>
-        <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick"/>
+        <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden"/>
+        <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
     </Grid>
 </Window>

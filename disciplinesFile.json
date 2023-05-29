@@ -1,0 +1,22 @@
+[
+  {
+    "title": "привет",
+    "maxValue": 11,
+    "dirProp": true
+  },
+  {
+    "title": "кирилл",
+    "maxValue": 22,
+    "dirProp": true
+  },
+  {
+    "title": "Павел Павленко",
+    "maxValue": 444,
+    "dirProp": true
+  },
+  {
+    "title": "Никита",
+    "maxValue": 3,
+    "dirProp": false
+  }
+]

@@ -7,4 +7,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Disciplines\Disciplines.csproj" />
+    <ProjectReference Include="..\FileWork\FileWork.csproj" />
+  </ItemGroup>
+
 </Project>

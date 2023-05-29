@@ -23,3 +23,10 @@ F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\Ps
 F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\PshyHealth.baml
 F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\chooseMenu.g.cs
 F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\chooseMenu.baml
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\addDiscipline.g.cs
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\addDiscipline.baml
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\bin\Debug\net7.0-windows\FileWork.dll
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\bin\Debug\net7.0-windows\FileWork.pdb
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\PsyhosomaticHealth.csproj.CopyComplete
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\bin\Debug\net7.0-windows\Disciplines.dll
+F:\my_projects\PsyhosomaticHealth\PsyhosomaticHealth\bin\Debug\net7.0-windows\Disciplines.pdb

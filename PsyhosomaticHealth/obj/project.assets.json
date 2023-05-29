@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net7.0-windows7.0": {}
+    "net7.0-windows7.0": {
+      "Disciplines/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Disciplines.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Disciplines.dll": {}
+        }
+      },
+      "FileWork/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Disciplines": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FileWork.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FileWork.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Disciplines/1.0.0": {
+      "type": "project",
+      "path": "../Disciplines/Disciplines.csproj",
+      "msbuildProject": "../Disciplines/Disciplines.csproj"
+    },
+    "FileWork/1.0.0": {
+      "type": "project",
+      "path": "../FileWork/FileWork.csproj",
+      "msbuildProject": "../FileWork/FileWork.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0-windows7.0": []
+    "net7.0-windows7.0": [
+      "Disciplines >= 1.0.0",
+      "FileWork >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\eviol\\.nuget\\packages\\": {}
@@ -33,7 +71,14 @@
       "frameworks": {
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
-          "projectReferences": {}
+          "projectReferences": {
+            "F:\\my_projects\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj": {
+              "projectPath": "F:\\my_projects\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj"
+            },
+            "F:\\my_projects\\PsyhosomaticHealth\\FileWork\\FileWork.csproj": {
+              "projectPath": "F:\\my_projects\\PsyhosomaticHealth\\FileWork\\FileWork.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -64,7 +109,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

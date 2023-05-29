@@ -1,0 +1,15 @@
+F:\my_projects\PsyhosomaticHealth\FileWork\bin\Debug\net7.0\FileWork.deps.json
+F:\my_projects\PsyhosomaticHealth\FileWork\bin\Debug\net7.0\FileWork.dll
+F:\my_projects\PsyhosomaticHealth\FileWork\bin\Debug\net7.0\FileWork.pdb
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.csproj.AssemblyReference.cache
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.GeneratedMSBuildEditorConfig.editorconfig
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.AssemblyInfoInputs.cache
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.AssemblyInfo.cs
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.csproj.CoreCompileInputs.cache
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.dll
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\refint\FileWork.dll
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.pdb
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\ref\FileWork.dll
+F:\my_projects\PsyhosomaticHealth\FileWork\bin\Debug\net7.0\Disciplines.dll
+F:\my_projects\PsyhosomaticHealth\FileWork\bin\Debug\net7.0\Disciplines.pdb
+F:\my_projects\PsyhosomaticHealth\FileWork\obj\Debug\net7.0\FileWork.csproj.CopyComplete

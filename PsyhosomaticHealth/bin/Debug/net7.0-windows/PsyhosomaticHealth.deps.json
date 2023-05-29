@@ -7,14 +7,41 @@
   "targets": {
     ".NETCoreApp,Version=v7.0": {
       "PsyhosomaticHealth/1.0.0": {
+        "dependencies": {
+          "Disciplines": "1.0.0",
+          "FileWork": "1.0.0"
+        },
         "runtime": {
           "PsyhosomaticHealth.dll": {}
+        }
+      },
+      "Disciplines/1.0.0": {
+        "runtime": {
+          "Disciplines.dll": {}
+        }
+      },
+      "FileWork/1.0.0": {
+        "dependencies": {
+          "Disciplines": "1.0.0"
+        },
+        "runtime": {
+          "FileWork.dll": {}
         }
       }
     }
   },
   "libraries": {
     "PsyhosomaticHealth/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Disciplines/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FileWork/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
