@@ -10,3 +10,15 @@ F:\my_projects\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.dll
 F:\my_projects\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\refint\Disciplines.dll
 F:\my_projects\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.pdb
 F:\my_projects\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\ref\Disciplines.dll
+F:\prjcts\PsyhosomaticHealth\Disciplines\bin\Debug\net7.0\Disciplines.deps.json
+F:\prjcts\PsyhosomaticHealth\Disciplines\bin\Debug\net7.0\Disciplines.dll
+F:\prjcts\PsyhosomaticHealth\Disciplines\bin\Debug\net7.0\Disciplines.pdb
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.csproj.AssemblyReference.cache
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.GeneratedMSBuildEditorConfig.editorconfig
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.AssemblyInfoInputs.cache
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.AssemblyInfo.cs
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.csproj.CoreCompileInputs.cache
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.dll
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\refint\Disciplines.dll
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.pdb
+F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\ref\Disciplines.dll

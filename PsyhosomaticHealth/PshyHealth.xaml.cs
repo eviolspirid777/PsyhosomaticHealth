@@ -138,7 +138,7 @@ namespace PsyhosomaticHealth
             else
                 textBlock.Text = "Ошибка при вводе данных!";
         }
-        public void MouseLeave(object sender, MouseEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
+        public void MouseLeave(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
         {
             ClearAll();
             if (disciplineType.SelectedIndex == 0)

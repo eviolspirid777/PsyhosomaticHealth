@@ -38,8 +38,8 @@ namespace PsyhosomaticHealth
 
             this.Show();
             Thread.Sleep(2200);
-            chooseMenu chmen = new chooseMenu();            //создаем окно выбора
-            chmen.Show();
+            PsyhHealth health = new PsyhHealth();
+            health.Show();
             this.Close();
         }
     }

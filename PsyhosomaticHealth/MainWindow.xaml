@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="БДЗУ" Height="520" Width="700" ResizeMode="NoResize">
+        Title="БДЗУ" Height="520" Width="700" ResizeMode="NoResize" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
     <Grid x:Name="greetWindow">
-        
+
     </Grid>
 </Window>

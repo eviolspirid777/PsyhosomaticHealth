@@ -10,18 +10,12 @@
     <Compile Update="addDiscipline.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="chooseMenu.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="PshyHealth.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="addDiscipline.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="chooseMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

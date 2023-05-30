@@ -61,7 +61,7 @@ namespace PsyhosomaticHealth {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PsyhosomaticHealth;component/choosemenu.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PsyhosomaticHealth;V1.0.0.0;component/choosemenu.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\chooseMenu.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

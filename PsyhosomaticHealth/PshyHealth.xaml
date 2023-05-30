@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize">
+        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
     <Grid>
     <Menu>
             <MenuItem Header="Файл">
@@ -23,10 +23,11 @@
             <MenuItem x:Name="help" Header="Справка"/>
         </Menu>
         <GroupBox x:Name="setDiscipline" Margin="0,20,624,360" Header="Вид Деятельности" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
-            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" MouseLeave="MouseLeave"/>
+            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" SelectionChanged="MouseLeave"/>
         </GroupBox>
         <TextBlock x:Name="textBlock" Width="600" Margin="200,20,20,74" FontSize="16" TextWrapping="Wrap"/>
-        <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="118"></StackPanel>
+        <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="118">
+        </StackPanel>
         <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden"/>
         <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
         <TextBlock Height="200" Width="100"/>
