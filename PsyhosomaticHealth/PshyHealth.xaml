@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="NoResize">
+        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize">
     <Grid>
     <Menu>
             <MenuItem Header="Файл">
