@@ -22,6 +22,18 @@ namespace PsyhosomaticHealth
     /// </summary>
     public partial class PsyhHealth : Window
     {
+        public const double c_deficitLMin = 0.618;
+        public const double c_deficitLMax = 0.849;
+        public const double c_deficitBMin = 0.850;
+        public const double c_deficitBMax = 0.999;
+        public const double c_balance = 1;
+        public const double c_reserveLMin = 1.001;
+        public const double c_reserveLMax = 1.249;
+        public const double c_reserveBMin = 1.250;
+        public const double c_reserveBMax = 1.599;
+        public const double c_goldProportionMin = 1.600;
+        public const double c_goldProportionMax = 1.618;
+
         ComboBox comboBox = new ComboBox();
         GroupBox resultHead = new GroupBox();
         GroupBox pulseHead = new GroupBox();
