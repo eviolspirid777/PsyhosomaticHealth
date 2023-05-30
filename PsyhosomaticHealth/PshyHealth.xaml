@@ -23,7 +23,7 @@
             <MenuItem x:Name="help" Header="Справка"/>
         </Menu>
         <GroupBox x:Name="setDiscipline" Margin="0,20,624,360" Header="Вид Деятельности" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
-            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" SelectionChanged="MouseLeave"/>
+            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" SelectionChanged="SelectionFunction"/>
         </GroupBox>
         <TextBlock x:Name="textBlock" Width="600" Margin="200,20,20,74" FontSize="16" TextWrapping="Wrap"/>
         <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="118">
