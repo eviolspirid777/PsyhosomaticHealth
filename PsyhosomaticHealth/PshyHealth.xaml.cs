@@ -23,14 +23,14 @@ namespace PsyhosomaticHealth
     public partial class PsyhHealth : Window
     {
         ComboBox comboBox = new ComboBox();
-        TextBox textBox = new TextBox();
         GroupBox resultHead = new GroupBox();
         GroupBox pulseHead = new GroupBox();
-        TextBox pulseBox = new TextBox();
+        TextBox pulseBox = new TextBox();           //Значение текстового поля pusleBox
+        TextBox resultBox = new TextBox();          //Значение текстового поля resultbox
         public PsyhHealth()
         {
             InitializeComponent();
-            disciplineType.Items.Add("Состояние покоя");
+            disciplineType.Items.Add("Состояние относительного покоя");
             disciplineType.Items.Add("Бег 100м");
             disciplineType.Items.Add("Приседания");
         }
@@ -144,6 +144,7 @@ namespace PsyhosomaticHealth
             if (disciplineType.SelectedIndex == 0)
             {
                 //GroupBox resultHead = new GroupBox();
+                resultHead = new GroupBox();
                 resultHead.Name = "typeHead";
                 resultHead.Header = "Вид";
                 resultHead.FontSize = 13;
@@ -160,6 +161,7 @@ namespace PsyhosomaticHealth
                 resultHead.Content = comboBox;
 
                 //GroupBox pulseHead = new GroupBox();
+                pulseHead = new GroupBox();
                 pulseHead.Name = "pulseHead";
                 pulseHead.Header = "Пульс";
                 pulseHead.FontSize = 13;
@@ -185,7 +187,6 @@ namespace PsyhosomaticHealth
                 resultHead.Margin = new Thickness(0, 0, 0, 10);
 
                 // Создание TextBox в первом GroupBox
-                TextBox resultBox = new TextBox();
                 resultBox.Name = "resultBox";
                 resultBox.Width = 185;
                 resultBox.Height = 30;
@@ -201,7 +202,6 @@ namespace PsyhosomaticHealth
                 pulseHead.ToolTip = "Измерьте пульc за 10 сек";
 
                 // Создание TextBox во втором GroupBox
-                TextBox pulseBox = new TextBox();
                 pulseBox.Name = "pulseBox";
                 pulseBox.Width = 185;
                 pulseBox.Height = 30;

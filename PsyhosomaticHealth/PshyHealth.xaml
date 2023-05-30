@@ -16,7 +16,7 @@
                 <MenuItem x:Name="printFile" Header="Печать" IsEnabled="False"/>
                 <MenuItem x:Name="closeApp" Header="Выход"/>
             </MenuItem>
-            <MenuItem x:Name="typesDiscipline" Header="Виды Деятельности" IsEnabled="True">
+            <MenuItem x:Name="typesDiscipline" Header="Вид Спорта" IsEnabled="True">
                 <MenuItem x:Name="addDiscipline" Header="Добавить" Click="addDiscipline_Click"/>
                 <MenuItem x:Name="changeDiscipline" Header="Изменить"/>
             </MenuItem>
