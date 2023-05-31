@@ -22,3 +22,15 @@ F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.dll
 F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\refint\Disciplines.dll
 F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.pdb
 F:\prjcts\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\ref\Disciplines.dll
+F:\prjcts\PsyhosomatiKHealth\Disciplines\bin\Debug\net7.0\Disciplines.deps.json
+F:\prjcts\PsyhosomatiKHealth\Disciplines\bin\Debug\net7.0\Disciplines.dll
+F:\prjcts\PsyhosomatiKHealth\Disciplines\bin\Debug\net7.0\Disciplines.pdb
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.csproj.AssemblyReference.cache
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.GeneratedMSBuildEditorConfig.editorconfig
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.AssemblyInfoInputs.cache
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.AssemblyInfo.cs
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.csproj.CoreCompileInputs.cache
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.dll
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\refint\Disciplines.dll
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.pdb
+F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\ref\Disciplines.dll

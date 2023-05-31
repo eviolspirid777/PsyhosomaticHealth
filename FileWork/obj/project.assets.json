@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\prjcts\\PsyhosomaticHealth\\FileWork\\FileWork.csproj",
+      "projectUniqueName": "F:\\prjcts\\PsyhosomatiKHealth\\FileWork\\FileWork.csproj",
       "projectName": "FileWork",
-      "projectPath": "F:\\prjcts\\PsyhosomaticHealth\\FileWork\\FileWork.csproj",
+      "projectPath": "F:\\prjcts\\PsyhosomatiKHealth\\FileWork\\FileWork.csproj",
       "packagesPath": "C:\\Users\\eviol\\.nuget\\packages\\",
-      "outputPath": "F:\\prjcts\\PsyhosomaticHealth\\FileWork\\obj\\",
+      "outputPath": "F:\\prjcts\\PsyhosomatiKHealth\\FileWork\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\eviol\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -53,8 +53,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj": {
-              "projectPath": "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj"
+            "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\Disciplines.csproj": {
+              "projectPath": "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\Disciplines.csproj"
             }
           }
         }

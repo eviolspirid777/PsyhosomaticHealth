@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj": {}
+    "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\Disciplines.csproj": {}
   },
   "projects": {
-    "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj": {
+    "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\Disciplines.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj",
+        "projectUniqueName": "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\Disciplines.csproj",
         "projectName": "Disciplines",
-        "projectPath": "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\Disciplines.csproj",
+        "projectPath": "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\Disciplines.csproj",
         "packagesPath": "C:\\Users\\eviol\\.nuget\\packages\\",
-        "outputPath": "F:\\prjcts\\PsyhosomaticHealth\\Disciplines\\obj\\",
+        "outputPath": "F:\\prjcts\\PsyhosomatiKHealth\\Disciplines\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\eviol\\AppData\\Roaming\\NuGet\\NuGet.Config",

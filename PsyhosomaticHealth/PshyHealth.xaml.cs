@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.Json;
 using System.IO;
+using Disciplines;
+using FileWorking;
 
 namespace PsyhosomaticHealth
 {
@@ -33,7 +35,6 @@ namespace PsyhosomaticHealth
         public const double c_reserveBMax = 1.599;
         public const double c_goldProportionMin = 1.600;
         public const double c_goldProportionMax = 1.618;
-
         ComboBox comboBox = new ComboBox();
         GroupBox resultHead = new GroupBox();
         GroupBox pulseHead = new GroupBox();
@@ -43,8 +44,8 @@ namespace PsyhosomaticHealth
         {
             InitializeComponent();
             disciplineType.Items.Add("Состояние относительного покоя");
-            disciplineType.Items.Add("Бег 100м");
-            disciplineType.Items.Add("Приседания");
+            AddDisciplines();
+            
         }
         public void ShowFunctions()
         {
@@ -112,6 +113,7 @@ namespace PsyhosomaticHealth
         {
             addDiscipline discipline = new addDiscipline();
             discipline.Show();
+            Close();
         }
         public void newFile_Click(object sender, RoutedEventArgs e)                                                 //РЕАЛИЗОВАТЬ ФУНКЦИЮ ДЛЯ НОВОГО ФАЙЛА
         {
@@ -123,11 +125,13 @@ namespace PsyhosomaticHealth
             string jsonString = JsonSerializer.Serialize(data);
             File.WriteAllText(filePath, jsonString);
         }
-
         public void buttonClick(object sender, RoutedEventArgs e)                       //вывод результата исчисления
         {
+            List<DisciplinesTypes> disciplinesTemp = new List<DisciplinesTypes>();
+            FileFunct.ReadData(out  disciplinesTemp);
             double result = 0;
             if (disciplineType.SelectedIndex == 0)
+            {
                 switch (comboBox.Text)
                 {
                     case "Сидя":
@@ -140,15 +144,49 @@ namespace PsyhosomaticHealth
                         result = SetResult((int)HumanState.lying);
                         break;
                 }
-            result = Math.Ceiling(result * 100) / 100;
-            if (result != 0)
-            {
-                textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
-                ColorSet(result);
-                TextAdd(result);
+                result = Ceiling(result);
+                if (result != 0)
+                {
+                    colorBlock.Visibility = Visibility.Visible;
+                    textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
+                    ColorSet(result);
+                    TextAdd(result);
+                }
+                else
+                    textBlock.Text = "Ошибка при вводе данных!";
             }
-            else
-                textBlock.Text = "Ошибка при вводе данных!";
+            if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineType.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
+            {
+                foreach(DisciplinesTypes temp in disciplinesTemp)
+                {
+                    if (temp.title.ToString() == disciplineType.SelectedItem.ToString())
+                    {
+                        if (temp.dirProp == false)
+                        {
+                            double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / temp.maxValue;
+                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
+                            result = percentValueProduct / percentValueEnergy;
+                            result = Ceiling(result);
+                            break;
+                        }
+                        else
+                        {
+                            double percentValueProduct = 161.8 * temp.maxValue / double.Parse(resultBox.Text);
+                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
+                            result = percentValueProduct / percentValueEnergy;
+                            result = Ceiling(result);
+                            break;
+                        }
+                    }
+                }
+                if (result != 0)
+                {
+                    colorBlock.Visibility = Visibility.Visible;
+                    textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
+                    ColorSet(result);
+                    TextAdd(result);
+                }
+            }
         }
         public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
         {
@@ -188,7 +226,7 @@ namespace PsyhosomaticHealth
                 stackPanel.Children.Add(resultHead);
                 stackPanel.Children.Add(pulseHead);
             }
-            else if (disciplineType.SelectedIndex == 1 || disciplineType.SelectedIndex == 2)
+            else
             {
                 // Создание первого GroupBox
                 GroupBox resultHead = new GroupBox();
@@ -235,7 +273,10 @@ namespace PsyhosomaticHealth
         }
         public void ClearAll()
         {
-            textBlock.Text = "";
+            colorBlock.Visibility = Visibility.Hidden;
+            pulseBox.Text = string.Empty;
+            resultBox.Text = string.Empty;
+            textBlock.Text = string.Empty;
             comboBox.Items.Clear();
             stackPanel.Children.Clear();
         }
@@ -244,6 +285,17 @@ namespace PsyhosomaticHealth
             lying = 100,
             sitting = 103,
             staying = 106
+        }
+        public void AddDisciplines()
+        {
+            List <DisciplinesTypes> temp = new List <DisciplinesTypes>();
+            FileFunct.ReadData(out  temp);
+            foreach(DisciplinesTypes type in temp)
+                disciplineType.Items.Add(type.title);
+        }
+        public double Ceiling(double result)
+        {
+            return Math.Ceiling(result * 1000) / 1000;
         }
     }
 }

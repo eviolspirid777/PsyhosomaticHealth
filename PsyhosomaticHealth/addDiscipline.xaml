@@ -17,8 +17,8 @@
             <RadioButton x:Name="reverseProgres" Content="Обратная прогрессия"/>
             <RadioButton x:Name="straightProgres" Content="Прямая прогрессия"/>
             <Grid>
-                <Button Height="50" Width="130" Content="Отмена" Margin="15,30" HorizontalAlignment="Left"/>
-                <Button Height="50" Width="130" Content="Принять" Margin="627,30,43,30" Click="enter_Click"/>
+                <Button Height="50" Width="130" Content="Отмена" Margin="15,30" HorizontalAlignment="Left" Click="cancel_Click" IsCancel="True"/>
+                <Button Height="50" Width="130" Content="Принять" Margin="627,30,43,30" Click="enter_Click" IsEnabled="True"/>
             </Grid>
         </StackPanel>
     </Grid>

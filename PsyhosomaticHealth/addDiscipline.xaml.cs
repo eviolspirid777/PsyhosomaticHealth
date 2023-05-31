@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FileWorking;
 using Disciplines;
+using System.Threading;
 
 namespace PsyhosomaticHealth
 {
@@ -44,15 +45,19 @@ namespace PsyhosomaticHealth
                 temp.dirProp = false;
             if (flag)
             {
-                List<DisciplinesTypes> disciplinesTypes = new List<DisciplinesTypes>();
+               List<DisciplinesTypes> disciplinesTypes = new List<DisciplinesTypes>();
                FileFunct.ReadData(out disciplinesTypes);
-                disciplinesTypes.Add(temp);
-                FileFunct.WriteData(disciplinesTypes);
-                this.Close();
+               disciplinesTypes.Add(temp);
+               FileFunct.WriteData(disciplinesTypes);
+               PsyhHealth psyhHealth = new PsyhHealth();
+               Close();
+               psyhHealth.Show();
             }
         }
         public void cancel_Click(object sender, RoutedEventArgs e)
         {
+            PsyhHealth psyhHealth = new PsyhHealth();
+            psyhHealth.Show();
             this.Close();
         }
     }

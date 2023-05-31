@@ -1,22 +1,12 @@
 [
   {
-    "title": "привет",
-    "maxValue": 11,
-    "dirProp": true
-  },
-  {
-    "title": "кирилл",
-    "maxValue": 22,
-    "dirProp": true
-  },
-  {
-    "title": "Павел Павленко",
-    "maxValue": 444,
-    "dirProp": true
-  },
-  {
-    "title": "Никита",
-    "maxValue": 3,
+    "title": "Упражнения силовой направленности",
+    "maxValue": 13,
     "dirProp": false
+  },
+  {
+    "title": "Биоэкономичная ходьба",
+    "maxValue": 41.59,
+    "dirProp": true
   }
 ]
