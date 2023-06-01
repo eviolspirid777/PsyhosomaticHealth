@@ -20,7 +20,7 @@
                 <MenuItem x:Name="addDiscipline" Header="Добавить" Click="addDiscipline_Click"/>
                 <MenuItem x:Name="changeDiscipline" Header="Изменить"/>
             </MenuItem>
-            <MenuItem x:Name="help" Header="Справка"/>
+            <MenuItem x:Name="help" Header="Справка" Click="HelpWindowClick"/>
         </Menu>
         <GroupBox x:Name="setDiscipline" Margin="0,20,624,360" Header="Вид Деятельности" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
             <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" SelectionChanged="SelectionFunction"/>
@@ -30,6 +30,5 @@
         </StackPanel>
         <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden" IsDefault="True"/>
         <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
-        <TextBlock Height="200" Width="100"/>
     </Grid>
 </Window>

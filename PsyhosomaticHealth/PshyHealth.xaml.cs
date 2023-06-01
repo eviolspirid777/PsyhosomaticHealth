@@ -188,6 +188,11 @@ namespace PsyhosomaticHealth
                 }
             }
         }
+        public void HelpWindowClick(object sender, EventArgs e)
+        {
+            HelpWIndow helpWIndow = new HelpWIndow();
+            helpWIndow.Show();
+        }
         public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
         {
             ClearAll();

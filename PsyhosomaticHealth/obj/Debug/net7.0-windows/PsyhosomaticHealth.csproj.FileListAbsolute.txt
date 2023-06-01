@@ -90,3 +90,5 @@ F:\prjcts\PsyhosomatiKHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\refint\
 F:\prjcts\PsyhosomatiKHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\PsyhosomaticHealth.pdb
 F:\prjcts\PsyhosomatiKHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\PsyhosomaticHealth.genruntimeconfig.cache
 F:\prjcts\PsyhosomatiKHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\ref\PsyhosomaticHealth.dll
+F:\prjcts\PsyhosomatiKHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\HelpWIndow.g.cs
+F:\prjcts\PsyhosomatiKHealth\PsyhosomaticHealth\obj\Debug\net7.0-windows\HelpWIndow.baml
