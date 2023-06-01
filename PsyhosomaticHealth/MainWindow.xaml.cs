@@ -25,6 +25,12 @@ namespace PsyhosomaticHealth
         {
             InitializeComponent();
 
+            WindowStyle = WindowStyle.None;         //удаляет рамку окна
+            AllowsTransparency = true;                  //делает окно прозрачным
+            Background = Brushes.Transparent;               //устанавливает прозрачный цвет для окна
+            Width = SystemParameters.PrimaryScreenWidth;            //подгоняет ширину и длину под размер окна
+            Height = SystemParameters.PrimaryScreenHeight;
+
             string imagePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Images/startScreen.jpg");          //Переменная, которая хранит путь к логотипу
 
             BitmapImage bitmapImage = new BitmapImage();
