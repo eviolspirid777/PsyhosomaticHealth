@@ -40,7 +40,8 @@ namespace PsyhosomaticHealth
         GroupBox pulseHead = new GroupBox();
         TextBox pulseBox = new TextBox();           //Значение текстового поля pusleBox
         TextBox resultBox = new TextBox();          //Значение текстового поля resultbox
-        public PsyhHealth()
+
+		public PsyhHealth()
         {
             InitializeComponent();
             disciplineType.Items.Add("Состояние относительного покоя");
@@ -132,53 +133,114 @@ namespace PsyhosomaticHealth
             double result = 0;
             if (disciplineType.SelectedIndex == 0)
             {
-                switch (comboBox.Text)
-                {
-                    case "Сидя":
-                        result = SetResult(((int)HumanState.sitting));
-                        break;
-                    case "Стоя":
-                        result = SetResult((int)HumanState.staying);
-                        break;
-                    case "Лежа":
-                        result = SetResult((int)HumanState.lying);
-                        break;
-                }
-                result = Ceiling(result);
-                if (result != 0)
-                {
-                    colorBlock.Visibility = Visibility.Visible;
-                    textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
-                    ColorSet(result);
-                    TextAdd(result);
-                }
-                else
-                    textBlock.Text = "Ошибка при вводе данных!";
-            }
-            if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineType.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
-            {
-                foreach(DisciplinesTypes temp in disciplinesTemp)
-                {
-                    if (temp.title.ToString() == disciplineType.SelectedItem.ToString())
+				if ((Convert.ToInt32(pulseBox.Text) >= 8 && Convert.ToInt32(pulseBox.Text) <= 21 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 48 && Convert.ToInt32(pulseBox.Text) <= 126 && minSwitcher.IsChecked == true))
+				{
+					switch (comboBox.Text)
                     {
-                        if (temp.dirProp == false)
+                        case "Сидя":
+                            if (minSwitcher.IsChecked == false)
+                            {
+                                result = SetResultSec(((int)HumanState.sitting));
+                                break;
+                            }
+                            else
+                            {
+								result = SetResultMin(((int)HumanState.sitting));
+								break;
+							}
+                        case "Стоя":
+							if (minSwitcher.IsChecked == false)
+							{
+								result = SetResultSec(((int)HumanState.staying));
+								break;
+							}
+							else
+							{
+								result = SetResultMin(((int)HumanState.staying));
+								break;
+							}
+						case "Лежа":
+							if (minSwitcher.IsChecked == false)
+							{
+								result = SetResultSec(((int)HumanState.lying));
+								break;
+							}
+							else
+							{
+								result = SetResultMin(((int)HumanState.lying));
+								break;
+							}
+					}
+                    result = Ceiling(result);
+                    if (result != 0)
+                    {
+                        colorBlock.Visibility = Visibility.Visible;
+                        textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
+                        ColorSet(result);
+                        TextAdd(result);
+                    }
+                    else
+                        textBlock.Text = "Ошибка при вводе данных!";
+                }
+				else
+				{
+					MessageBox.Show("Ошибка с пульсом!", "Неверно задан пульс");
+				}
+			}
+
+			if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineType.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
+            {
+                if ((Convert.ToInt32(pulseBox.Text) >= 10 && Convert.ToInt32(pulseBox.Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 60 && Convert.ToInt32(pulseBox.Text) <= 216 && minSwitcher.IsChecked == true))
+                {
+                    foreach (DisciplinesTypes temp in disciplinesTemp)
+                    {
+                        if (temp.title.ToString() == disciplineType.SelectedItem.ToString())
                         {
-                            double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / temp.maxValue;
-                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
-                            result = percentValueProduct / percentValueEnergy;
-                            result = Ceiling(result);
-                            break;
-                        }
-                        else
-                        {
-                            double percentValueProduct = 161.8 * temp.maxValue / double.Parse(resultBox.Text);
-                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
-                            result = percentValueProduct / percentValueEnergy;
-                            result = Ceiling(result);
-                            break;
+                            if (temp.dirProp == false)
+                            {
+                                if (minSwitcher.IsChecked == false)
+                                {
+                                    double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / temp.maxValue;
+                                    double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
+                                    result = percentValueProduct / percentValueEnergy;
+                                    result = Ceiling(result);
+                                    break;
+                                }
+                                else
+                                {
+									double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / temp.maxValue;
+									double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
+									result = percentValueProduct / percentValueEnergy;
+									result = Ceiling(result);
+									break;
+								}
+                            }
+                            else
+                            {
+                                if (minSwitcher.IsChecked == false)
+                                {
+                                    double percentValueProduct = 161.8 * temp.maxValue / double.Parse(resultBox.Text);
+                                    double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
+                                    result = percentValueProduct / percentValueEnergy;
+                                    result = Ceiling(result);
+                                    break;
+                                }
+                                else
+                                {
+									double percentValueProduct = 161.8 * temp.maxValue / double.Parse(resultBox.Text);
+									double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
+									result = percentValueProduct / percentValueEnergy;
+									result = Ceiling(result);
+									break;
+								}
+                            }
                         }
                     }
                 }
+                else
+                {
+					MessageBox.Show("Ошибка с пульсом!", "Неверно задан пульс");
+				}
                 if (result != 0)
                 {
                     colorBlock.Visibility = Visibility.Visible;
@@ -198,6 +260,7 @@ namespace PsyhosomaticHealth
             ClearAll();
             if (disciplineType.SelectedIndex == 0)
             {
+                minSwitcher.Visibility = Visibility.Visible;
                 //GroupBox resultHead = new GroupBox();
                 resultHead = new GroupBox();
                 resultHead.Name = "typeHead";
@@ -233,6 +296,7 @@ namespace PsyhosomaticHealth
             }
             else
             {
+                minSwitcher.Visibility = Visibility.Visible;
                 // Создание первого GroupBox
                 GroupBox resultHead = new GroupBox();
                 resultHead.Name = "resultHead";
@@ -261,21 +325,29 @@ namespace PsyhosomaticHealth
                 pulseBox.Width = 185;
                 pulseBox.Height = 30;
 
-                // Добавление TextBox во второй GroupBox
-                pulseHead.Content = pulseBox;
+
+				// Добавление TextBox во второй GroupBox
+				pulseHead.Content = pulseBox;
 
                 // Добавление обоих GroupBox в StackPanel
                 stackPanel.Children.Add(resultHead);
                 stackPanel.Children.Add(pulseHead);
             }
         }
-        public double SetResult(int coef = 1)
+        public double SetResultSec(int coef = 1)
         {
             if (double.TryParse(pulseBox.Text, out double temp))
                 return coef / (100 * temp / 12);
             else
                 return 0;
         }
+        public double SetResultMin(int coef = 1)
+        {
+			if (double.TryParse(pulseBox.Text, out double temp))
+				return coef / (100 * temp / 72);
+			else
+				return 0;
+		}
         public void ClearAll()
         {
             colorBlock.Visibility = Visibility.Hidden;

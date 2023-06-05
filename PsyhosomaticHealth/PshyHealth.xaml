@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
     <Grid>
-    <Menu>
+        <Menu>
             <MenuItem Header="Файл">
                 <MenuItem x:Name="newFile" Header="Новый" Click="newFile_Click"/>
                 <MenuItem x:Name="openFile" Header="Открыть" Click="openFile_Click"/>
@@ -26,8 +26,9 @@
             <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" SelectionChanged="SelectionFunction"/>
         </GroupBox>
         <TextBlock x:Name="textBlock" Width="600" Margin="200,20,20,74" FontSize="16" TextWrapping="Wrap"/>
-        <StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Left" Width="190" Height="118">
+        <StackPanel x:Name="stackPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" Height="118" Margin="0,99,0,0">
         </StackPanel>
+        <CheckBox x:Name="minSwitcher" Width="100" Margin="10,222,710,173" Content="Минуты" Visibility="Hidden" FontSize="14"/>
         <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden" IsDefault="True"/>
         <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
     </Grid>
