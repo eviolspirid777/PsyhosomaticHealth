@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
+        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
     <Grid>
         <Menu>
             <MenuItem Header="Файл">
@@ -31,5 +31,6 @@
         <CheckBox x:Name="minSwitcher" Width="100" Margin="10,222,710,173" Content="Минуты" Visibility="Hidden" FontSize="14"/>
         <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden" IsDefault="True"/>
         <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
+        <TextBlock x:Name="sportBlock" Margin="291,398,329,0" Visibility="Visible" Width="200" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
     </Grid>
 </Window>

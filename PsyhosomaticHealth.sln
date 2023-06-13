@@ -5,9 +5,14 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PsyhosomaticHealth", "PsyhosomaticHealth\PsyhosomaticHealth.csproj", "{88F580AA-EF4F-4E98-A060-50774743FB68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileWork", "FileWork\FileWork.csproj", "{5FDCB7EC-55B4-4C73-9BDB-02C7E59A6721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileWork", "FileWork\FileWork.csproj", "{5FDCB7EC-55B4-4C73-9BDB-02C7E59A6721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Disciplines", "Disciplines\Disciplines.csproj", "{6FDEB3A4-E3CE-4258-857F-DE6C8D8D35EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Disciplines", "Disciplines\Disciplines.csproj", "{6FDEB3A4-E3CE-4258-857F-DE6C8D8D35EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE0A3E7B-40D2-447D-BA48-DA0303221DA2}"
+	ProjectSection(SolutionItems) = preProject
+		disciplinesFile.json = disciplinesFile.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

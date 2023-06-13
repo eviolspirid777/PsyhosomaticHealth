@@ -16,6 +16,7 @@ using System.Text.Json;
 using System.IO;
 using Disciplines;
 using FileWorking;
+using System.Threading;
 
 namespace PsyhosomaticHealth
 {
@@ -35,48 +36,67 @@ namespace PsyhosomaticHealth
         public const double c_reserveBMax = 1.599;
         public const double c_goldProportionMin = 1.600;
         public const double c_goldProportionMax = 1.618;
+
         ComboBox comboBox = new ComboBox();
         GroupBox resultHead = new GroupBox();
         GroupBox pulseHead = new GroupBox();
         TextBox pulseBox = new TextBox();           //Значение текстового поля pusleBox
         TextBox resultBox = new TextBox();          //Значение текстового поля resultbox
 
-		public PsyhHealth()
+        public double minValue = 0;         //переменная, определяющая минимальное значение
+        public double maxValue = 0;     //переменная, определяющая максимальное значение
+        public int counter = 3;         //переменная, определяющая счетчик
+
+        public PsyhHealth()
         {
             InitializeComponent();
             disciplineType.Items.Add("Состояние относительного покоя");
             AddDisciplines();
-            
+
         }
-        public void ShowFunctions()
+		public void ShowFunctions()
         {
             setDiscipline.Visibility = Visibility.Visible;          //показывает поле для выбора дисциплины
             getResult.Visibility = Visibility.Visible;              //показывает клавишу получения результата
         }
         public void ColorSet( double result)
         {
-            if (result >= 1.60 && result <= 1.62)
-                colorBlock.Background = new SolidColorBrush(Colors.Green);
-            else if (result >= 1.01 && result <= 1.24)
-                colorBlock.Background = new SolidColorBrush(Colors.GreenYellow);
-            else if (result >= 1.25 && result <= 1.59)
-                colorBlock.Background = new SolidColorBrush(Colors.YellowGreen);
-            else if (result == 1)
-                colorBlock.Background = new SolidColorBrush(Colors.Yellow);
-            else if (result < 0.99)
-                colorBlock.Background = new SolidColorBrush(Colors.Red);
-        }
+            if (result > 1.618)
+                colorBlock.Background = new SolidColorBrush(Colors.Gold);
+            else if (result >= 1.600 && result <= 1.618)
+                colorBlock.Background = new SolidColorBrush(Colors.Green);                        //Золотая пропорция
+            else if (result >= 1.250 && result <= 1.599)
+                colorBlock.Background = new SolidColorBrush(Colors.GreenYellow);            //Большой резерв
+            else if (result >= 1 && result <= 1.249)
+                colorBlock.Background = new SolidColorBrush(Colors.YellowGreen);          //Малый резерв
+            else if (result >= 0.850 && result <= 0.999)
+                colorBlock.Background = new SolidColorBrush(Colors.Yellow);                  //Малый дефицит
+            else if (result >= 0.618 && result <= 0.849)
+                colorBlock.Background = new SolidColorBrush(Colors.DarkRed);            //Большой дефицит
+            else if (result <= 0.617)
+                colorBlock.Background = new SolidColorBrush(Colors.Red);                  //Предельная энергостоимость
+
+		}
         public void TextAdd(double result)
         {
-            if (result >= 1.60 && result <= 1.62)
-                textBlock.Text += "\nЗОЛОТАЯ ПРОПОРЦИЯ - оптимальный максимум гармоничного и экономичности жизнидеятельности и жизнеспособности организма.";
-            if (result >= 1.01 && result <= 1.59)
-                textBlock.Text += "\nРЕЗЕРВ - преобладание психосоматической нормы над физиологическими и возможными патологическими нарушениями, прогрессирующее развитие экономичности жизнидеятельности организма.";
-            if (result == 1)
-                textBlock.Text += "\nБАЛАНС - промежуточный критерий постоянного взаимодействия на протяжении всей жизни психосоматической нормы с физиологическими или патологическими нарушениями";
-            if (result <= 0.99)
-                textBlock.Text += "\nДЕФИЦИТ - преобладание физиологических и патологических нарушений над психосоматической нормой, что в соответствующей степени нарушает гармоничность и экономичность жизнидеятельности организма";
-        }
+            textBlock.Text += "\nКачественный показатель: ";        //Начало любой КАЧЕСТВЕННОЙ характеристики
+
+            if (result > 1.618)
+                textBlock.Text += "За пределом ЗОЛОТОЙ ПРОПОРЦИИ - предельная негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается стабильным целостным благоприятным состоянием организма, чувством удовлетворения, психологического и телесного комфорта. Характеризует оптимальный максимум гармоничности и экономичности жизнедеятельности организма. Объём выполняемой психомоторной нагрузки характеризуется возможностью её оптимального увеличения в соответствии с индивидуальными адаптационными возможностями организма в диапазоне негэнтропийных энергетических затрат.";
+            if (result >= 1.600 && result <= 1.618)
+                textBlock.Text += "ЗОЛОТАЯ ПРОПОРЦИЯ - –наивысшая негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается стабильным целостным благоприятным состоянием организма, чувством удовлетворения, эйфории, психологического и телесного комфорта. Характеризует оптимальный максимум гармоничности и экономичности жизнедеятельности организма. Выполняемый объём психомоторной нагрузки полностью соответствует оптимальным индивидуальным адаптационным возможностям организма.";
+            if (result >= 1.250 && result <= 1.599)
+                textBlock.Text += "БОЛЬШОЙ РЕЗЕРВ - устойчиво высокая негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается стабильным благоприятным состоянием функциональных систем организма, устойчивым режимом экономичного дыхания в покое и активной деятельности с постепенным прогрессирующим снижением секундных объемов легочной вентиляции, сопровождается чувством психологического и телесного комфорта. Выполняемый объём психомоторной нагрузки полностью соответствует оптимальным индивидуальным адаптационным возможностям организма.";
+            if (result >= 1 && result <= 1.249)
+                textBlock.Text += "МАЛЫЙ РЕЗЕРВ - начальная и умеренно- средняя негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается оптимальным состоянием функциональных систем организма, отсутствием признаков нехватки воздуха и потребности в увеличении объемов легочной вентиляции, устойчивостью психических реакций, отсутствием напряжения, дискомфортных и болезненных ощущений. Выполняемый объём психомоторной нагрузки соответствует индивидуальным адаптационным возможностям организма.";
+            if (result >= 0.850 && result <= 0.999)
+                textBlock.Text += "МАЛЫЙ ДЕФИЦИТ - начальная и умеренно-средняя энтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается напряжением в работе кардио-респираторной и нервной систем, ощущением нехватки воздуха, снижением психических реакций, чувством скованности и тяжести в мышечно-связочном аппарате, в ряде случаев показана смена вида деятельности. Кратковременное нахождение организма в диапазоне малого дефицита не вызывает выраженных нарушений.";
+            if (result >= 0.618 && result <= 0.849)
+                textBlock.Text += "БОЛЬШОЙ ДЕФИЦИТ - высокая энтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается значительным напряжением в работе кардио-респираторной, нервной и вегетативной систем, нехваткой воздуха и отдышкой, выраженным сердцебиением, угнетением психических реакций, тяжестью в голове и головокружением, болезненными ощущениями в мышечно-связочном и костном аппаратах вплоть до возникновения объективной потребности в отказе от осуществления деятельности.";
+            if (result <= 0.617)
+                textBlock.Text += "предельная энтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается чрезмерным напряжением функционирования кардио- респираторной, нервной и вегетативной систем, приступами удушья и нехватки воздуха, подавлением психических реакций, головокружением и тяжестью в голове, тошнотой, рвотой, болями и страданиями вплоть до полного отказа от осуществляемой деятельности.";
+
+		}
         public void HideFunctions()
         {
             setDiscipline.Visibility = Visibility.Visible;          //скрывает поле для выбора дисциплины
@@ -175,7 +195,7 @@ namespace PsyhosomaticHealth
                     if (result != 0)
                     {
                         colorBlock.Visibility = Visibility.Visible;
-                        textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
+                        textBlock.Text = $"Колличественный показатель {Convert.ToString(result)}.";
                         ColorSet(result);
                         TextAdd(result);
                     }
@@ -184,70 +204,110 @@ namespace PsyhosomaticHealth
                 }
 				else
 				{
-					MessageBox.Show("Ошибка с пульсом!", "Неверно задан пульс");
+					MessageBox.Show("Ошибка с ЧСС!", "Неверно задана ЧСС");
 				}
 			}
 
 			if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineType.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
             {
-                if ((Convert.ToInt32(pulseBox.Text) >= 10 && Convert.ToInt32(pulseBox.Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 60 && Convert.ToInt32(pulseBox.Text) <= 216 && minSwitcher.IsChecked == true))
+                if ((Convert.ToInt32(pulseBox.Text) >= 10 && Convert.ToInt32(pulseBox.Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 60 && Convert.ToInt32(pulseBox.Text) <= 216 && minSwitcher.IsChecked == true))       //проверка границ ПУЛЬСА
                 {
                     foreach (DisciplinesTypes temp in disciplinesTemp)
                     {
                         if (temp.title.ToString() == disciplineType.SelectedItem.ToString())
                         {
-                            if (temp.dirProp == false)
+                            if (temp.dirProp == false)                                      //прямая прогрессия
                             {
-                                if (minSwitcher.IsChecked == false)
+                                minValue = temp.maxValue * 100 / 161.8;         //находим минимальное значение
+                                maxValue = temp.maxValue;
+                                while (result == 0)
                                 {
-                                    double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / temp.maxValue;
-                                    double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
-                                    result = percentValueProduct / percentValueEnergy;
-                                    result = Ceiling(result);
-                                    break;
+                                    if (Convert.ToDouble(resultBox.Text) >= minValue && counter > 0 && Convert.ToDouble(resultBox.Text) <= maxValue)        //проверка результата на минимальную границу(прямая прогрессия)
+                                    {
+                                        if (minSwitcher.IsChecked == false)             //для секунд
+                                        {
+                                            double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / maxValue;
+                                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
+                                            result = percentValueProduct / percentValueEnergy;
+                                            result = Ceiling(result);
+											break;
+                                        }
+                                        else                                                            //для минут
+                                        {
+                                            double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / maxValue;
+                                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
+                                            result = percentValueProduct / percentValueEnergy;
+                                            result = Ceiling(result);
+											break;
+                                        }
+                                    }
+                                    else if (Convert.ToDouble(resultBox.Text) <= minValue && counter > 0)                                                      //переход на следующий уровень
+                                    {
+                                        counter--;      //увеличиваем счетчик на единицу(переходим на следующий уровень)
+                                        maxValue = minValue;       //Присваиваем максимальному значению - минимальное
+                                        minValue = maxValue * 100 / 161.8;             //расчитываем новое минимальное
+                                    }
+                                    else                                                                                                                                                                            //обработка, если мы вышли за нормы показателя
+                                    {
+                                        MessageBox.Show("Ошибка с колличественным показателем", "Ошибка при вычислении колличественного показателя!");
+                                        break;
+                                    }
                                 }
-                                else
-                                {
-									double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / temp.maxValue;
-									double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
-									result = percentValueProduct / percentValueEnergy;
-									result = Ceiling(result);
-									break;
-								}
                             }
-                            else
+                            else                                                    //обратная прогрессия  ДОПИСАТЬ!! ХОД МЫСЛЕЙ ТОТ ЖЕ!!!
                             {
-                                if (minSwitcher.IsChecked == false)
+                                minValue = temp.maxValue * 161.8 / 100;
+								maxValue = temp.maxValue;
+                                while (result == 0)
                                 {
-                                    double percentValueProduct = 161.8 * temp.maxValue / double.Parse(resultBox.Text);
-                                    double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
-                                    result = percentValueProduct / percentValueEnergy;
-                                    result = Ceiling(result);
-                                    break;
+                                    if (Convert.ToDouble(resultBox.Text) <= minValue && counter > 0 && Convert.ToDouble(resultBox.Text) >= maxValue)            //проверка результата на минимальную границу(обратная прогрессия)
+                                    {
+                                        if (minSwitcher.IsChecked == false)
+                                        {
+                                            double percentValueProduct = 161.8 * maxValue / double.Parse(resultBox.Text);
+                                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
+                                            result = percentValueProduct / percentValueEnergy;
+                                            result = Ceiling(result);
+											break;
+                                        }
+                                        else
+                                        {
+                                            double percentValueProduct = 161.8 * maxValue / double.Parse(resultBox.Text);
+                                            double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
+                                            result = percentValueProduct / percentValueEnergy;
+                                            result = Ceiling(result);
+                                            break;
+                                        }
+                                    }
+                                    else if(Convert.ToDouble(resultBox.Text) >= minValue && counter > 0)               //переход на следующий уровень
+                                    {
+										counter--;      //увеличиваем счетчик на единицу(переходим на следующий уровень)
+										maxValue = minValue;       //Присваиваем максимальному значению - минимальное
+										minValue = maxValue * 161.8 / 100;             //расчитываем новое минимальное
+									}
+                                    else
+                                    {
+                                        MessageBox.Show("Ошибка с колличественным показателем", "Ошибка при вычислении колличественного показателя!");
+                                        break;
+                                    }
                                 }
-                                else
-                                {
-									double percentValueProduct = 161.8 * temp.maxValue / double.Parse(resultBox.Text);
-									double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
-									result = percentValueProduct / percentValueEnergy;
-									result = Ceiling(result);
-									break;
-								}
                             }
                         }
                     }
                 }
                 else
                 {
-					MessageBox.Show("Ошибка с пульсом!", "Неверно задан пульс");
+					MessageBox.Show("Ошибка с ЧСС!", "Неверно задана ЧСС");
 				}
                 if (result != 0)
                 {
                     colorBlock.Visibility = Visibility.Visible;
-                    textBlock.Text = $"Ваш коэффициент {Convert.ToString(result)}.";
+                    textBlock.Text = $"Колличественный показатель {Convert.ToString(result)}.";
                     ColorSet(result);
                     TextAdd(result);
-                }
+                    sportBlock.Text = $"Ваш уровень: C{counter}";
+					counter = 3;                                //Возвращаем счетчик
+				}
             }
         }
         public void HelpWindowClick(object sender, EventArgs e)
@@ -255,7 +315,7 @@ namespace PsyhosomaticHealth
             HelpWIndow helpWIndow = new HelpWIndow();
             helpWIndow.Show();
         }
-        public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
+		public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
         {
             ClearAll();
             if (disciplineType.SelectedIndex == 0)
@@ -264,7 +324,7 @@ namespace PsyhosomaticHealth
                 //GroupBox resultHead = new GroupBox();
                 resultHead = new GroupBox();
                 resultHead.Name = "typeHead";
-                resultHead.Header = "Вид";
+                resultHead.Header = "Исходное положение";
                 resultHead.FontSize = 13;
                 resultHead.ToolTip = "Введите результат";
                 resultHead.Margin = new Thickness(0, 0, 0, 10);
@@ -281,7 +341,7 @@ namespace PsyhosomaticHealth
                 //GroupBox pulseHead = new GroupBox();
                 pulseHead = new GroupBox();
                 pulseHead.Name = "pulseHead";
-                pulseHead.Header = "Пульс";
+                pulseHead.Header = "ЧСС";
                 pulseHead.FontSize = 13;
                 pulseHead.ToolTip = "Измерьте пульc за 10 сек";
 
@@ -300,7 +360,7 @@ namespace PsyhosomaticHealth
                 // Создание первого GroupBox
                 GroupBox resultHead = new GroupBox();
                 resultHead.Name = "resultHead";
-                resultHead.Header = "Результат";
+                resultHead.Header = "Продуктивность";
                 resultHead.FontSize = 13;
                 resultHead.ToolTip = "Введите результат";
                 resultHead.Margin = new Thickness(0, 0, 0, 10);
@@ -316,7 +376,7 @@ namespace PsyhosomaticHealth
                 // Создание второго GroupBox
                 GroupBox pulseHead = new GroupBox();
                 pulseHead.Name = "pulseHead";
-                pulseHead.Header = "Пульс";
+                pulseHead.Header = "ЧСС";
                 pulseHead.FontSize = 13;
                 pulseHead.ToolTip = "Измерьте пульc за 10 сек";
 

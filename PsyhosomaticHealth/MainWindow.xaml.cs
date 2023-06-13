@@ -31,7 +31,7 @@ namespace PsyhosomaticHealth
             Width = SystemParameters.PrimaryScreenWidth;            //подгоняет ширину и длину под размер окна
             Height = SystemParameters.PrimaryScreenHeight;
 
-            string imagePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Images/startScreen.jpg");          //Переменная, которая хранит путь к логотипу
+            string imagePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Images/startScreen2.jpg");          //Переменная, которая хранит путь к логотипу
 
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
@@ -43,7 +43,7 @@ namespace PsyhosomaticHealth
             greetWindow.Children.Add(image);
 
             this.Show();
-            Thread.Sleep(2200);
+            Thread.Sleep(4400);                                 //длительность заставки
             PsyhHealth health = new PsyhHealth();
             health.Show();
             this.Close();
