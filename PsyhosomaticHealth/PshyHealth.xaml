@@ -16,21 +16,24 @@
                 <MenuItem x:Name="printFile" Header="Печать" IsEnabled="False"/>
                 <MenuItem x:Name="closeApp" Header="Выход"/>
             </MenuItem>
-            <MenuItem x:Name="typesDiscipline" Header="Вид Спорта" IsEnabled="True">
+            <MenuItem x:Name="typesDiscipline" Header="Вид Деятельности" IsEnabled="True">
                 <MenuItem x:Name="addDiscipline" Header="Добавить" Click="addDiscipline_Click"/>
                 <MenuItem x:Name="changeDiscipline" Header="Изменить"/>
             </MenuItem>
             <MenuItem x:Name="help" Header="Справка" Click="HelpWindowClick"/>
         </Menu>
         <GroupBox x:Name="setDiscipline" Margin="0,20,624,360" Header="Вид Деятельности" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
-            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид спорта" Height="27" SelectionChanged="SelectionFunction"/>
+            <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид деятельности" Height="27" SelectionChanged="SelectionFunction"/>
+        </GroupBox>
+        <GroupBox x:Name="setDisciplineContent" Margin="0,80,624,295" Header="Вид Спорта" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
+            <ComboBox  x:Name="disciplineTypeContent" ToolTip="Выберите вид спорта" Height="27" />
         </GroupBox>
         <TextBlock x:Name="textBlock" Width="600" Margin="200,20,20,74" FontSize="16" TextWrapping="Wrap"/>
-        <StackPanel x:Name="stackPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" Height="118" Margin="0,99,0,0">
+        <StackPanel x:Name="stackPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" Height="118" Margin="0,150,0,0">
         </StackPanel>
-        <CheckBox x:Name="minSwitcher" Width="100" Margin="10,222,710,173" Content="Минуты" Visibility="Hidden" FontSize="14"/>
+        <CheckBox x:Name="minSwitcher" Width="100" Margin="24,292,696,103" Content="Минуты" Visibility="Hidden" FontSize="14"/>
         <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden" IsDefault="True"/>
         <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
-        <TextBlock x:Name="sportBlock" Margin="291,398,329,0" Visibility="Visible" Width="200" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <TextBlock x:Name="sportBlock" Margin="291,398,256,0" Visibility="Visible" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
     </Grid>
 </Window>

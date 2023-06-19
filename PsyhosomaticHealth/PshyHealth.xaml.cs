@@ -51,9 +51,13 @@ namespace PsyhosomaticHealth
         {
             InitializeComponent();
             disciplineType.Items.Add("Состояние относительного покоя");
-            AddDisciplines();
+			disciplineType.Items.Add("Биоэкономичная психомотрная гимнастика");
+			disciplineType.Items.Add("Циклические виды");
+			disciplineType.Items.Add("Ациклические виды");
+			disciplineType.Items.Add("Смешанные виды");
+			//AddDisciplines();
 
-        }
+		}
 		public void ShowFunctions()
         {
             setDiscipline.Visibility = Visibility.Visible;          //показывает поле для выбора дисциплины
@@ -79,7 +83,7 @@ namespace PsyhosomaticHealth
 		}
         public void TextAdd(double result)
         {
-            textBlock.Text += "\nКачественный показатель: ";        //Начало любой КАЧЕСТВЕННОЙ характеристики
+            textBlock.Text += "\nКачественная характеристика: ";        //Начало любой КАЧЕСТВЕННОЙ характеристики
 
             if (result > 1.618)
                 textBlock.Text += "За пределом ЗОЛОТОЙ ПРОПОРЦИИ - предельная негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается стабильным целостным благоприятным состоянием организма, чувством удовлетворения, психологического и телесного комфорта. Характеризует оптимальный максимум гармоничности и экономичности жизнедеятельности организма. Объём выполняемой психомоторной нагрузки характеризуется возможностью её оптимального увеличения в соответствии с индивидуальными адаптационными возможностями организма в диапазоне негэнтропийных энергетических затрат.";
@@ -97,11 +101,6 @@ namespace PsyhosomaticHealth
                 textBlock.Text += "предельная энтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается чрезмерным напряжением функционирования кардио- респираторной, нервной и вегетативной систем, приступами удушья и нехватки воздуха, подавлением психических реакций, головокружением и тяжестью в голове, тошнотой, рвотой, болями и страданиями вплоть до полного отказа от осуществляемой деятельности.";
 
 		}
-        public void HideFunctions()
-        {
-            setDiscipline.Visibility = Visibility.Visible;          //скрывает поле для выбора дисциплины
-            getResult.Visibility = Visibility.Visible;              //скрывает клавишу получения результата
-        }
         public void FuncSetEnable()                                     //Включить функции
         {
             printFile.IsEnabled = true;
@@ -208,13 +207,13 @@ namespace PsyhosomaticHealth
 				}
 			}
 
-			if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineType.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
+			else if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
             {
                 if ((Convert.ToInt32(pulseBox.Text) >= 10 && Convert.ToInt32(pulseBox.Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 60 && Convert.ToInt32(pulseBox.Text) <= 216 && minSwitcher.IsChecked == true))       //проверка границ ПУЛЬСА
                 {
                     foreach (DisciplinesTypes temp in disciplinesTemp)
                     {
-                        if (temp.title.ToString() == disciplineType.SelectedItem.ToString())
+                        if (temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString())
                         {
                             if (temp.dirProp == false)                                      //прямая прогрессия
                             {
@@ -305,7 +304,7 @@ namespace PsyhosomaticHealth
                     textBlock.Text = $"Колличественный показатель {Convert.ToString(result)}.";
                     ColorSet(result);
                     TextAdd(result);
-                    sportBlock.Text = $"Ваш уровень: C{counter}";
+                    sportBlock.Text = $"Ваш уровень продуктивности: C{counter}";
 					counter = 3;                                //Возвращаем счетчик
 				}
             }
@@ -318,9 +317,10 @@ namespace PsyhosomaticHealth
 		public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
         {
             ClearAll();
-            if (disciplineType.SelectedIndex == 0)
+            if (disciplineType.SelectedIndex == 0)                                                                                      //Состояние относительного покоя
             {
-                minSwitcher.Visibility = Visibility.Visible;
+				setDisciplineContent.Visibility = Visibility.Hidden;        //скрывает второй комбобокс
+				minSwitcher.Visibility = Visibility.Visible;
                 //GroupBox resultHead = new GroupBox();
                 resultHead = new GroupBox();
                 resultHead.Name = "typeHead";
@@ -354,9 +354,11 @@ namespace PsyhosomaticHealth
                 stackPanel.Children.Add(resultHead);
                 stackPanel.Children.Add(pulseHead);
             }
-            else
+            else if( disciplineType.SelectedIndex == 1)                                                         //Биоэкономическая психомотрная гимнастика
             {
-                minSwitcher.Visibility = Visibility.Visible;
+                addFunction(1);
+				setDisciplineContent.Visibility = Visibility.Visible;       //показывает второй комбобокс
+				minSwitcher.Visibility = Visibility.Visible;
                 // Создание первого GroupBox
                 GroupBox resultHead = new GroupBox();
                 resultHead.Name = "resultHead";
@@ -393,7 +395,130 @@ namespace PsyhosomaticHealth
                 stackPanel.Children.Add(resultHead);
                 stackPanel.Children.Add(pulseHead);
             }
-        }
+			else if (disciplineType.SelectedIndex == 2)                                                                                 //Циклические виды
+			{
+                addFunction(2);
+				setDisciplineContent.Visibility = Visibility.Visible;       //показывает второй комбобокс
+				minSwitcher.Visibility = Visibility.Visible;
+				// Создание первого GroupBox
+				GroupBox resultHead = new GroupBox();
+				resultHead.Name = "resultHead";
+				resultHead.Header = "Продуктивность";
+				resultHead.FontSize = 13;
+				resultHead.ToolTip = "Введите результат";
+				resultHead.Margin = new Thickness(0, 0, 0, 10);
+
+				// Создание TextBox в первом GroupBox
+				resultBox.Name = "resultBox";
+				resultBox.Width = 185;
+				resultBox.Height = 30;
+
+				// Добавление TextBox в первый GroupBox
+				resultHead.Content = resultBox;
+
+				// Создание второго GroupBox
+				GroupBox pulseHead = new GroupBox();
+				pulseHead.Name = "pulseHead";
+				pulseHead.Header = "ЧСС";
+				pulseHead.FontSize = 13;
+				pulseHead.ToolTip = "Измерьте пульc за 10 сек";
+
+				// Создание TextBox во втором GroupBox
+				pulseBox.Name = "pulseBox";
+				pulseBox.Width = 185;
+				pulseBox.Height = 30;
+
+
+				// Добавление TextBox во второй GroupBox
+				pulseHead.Content = pulseBox;
+
+				// Добавление обоих GroupBox в StackPanel
+				stackPanel.Children.Add(resultHead);
+				stackPanel.Children.Add(pulseHead);
+			}
+			else if (disciplineType.SelectedIndex == 3)                                                                                             //Ациклические виды
+			{
+                addFunction(3);
+				setDisciplineContent.Visibility = Visibility.Visible;       //показывает второй комбобокс
+				minSwitcher.Visibility = Visibility.Visible;
+				// Создание первого GroupBox
+				GroupBox resultHead = new GroupBox();
+				resultHead.Name = "resultHead";
+				resultHead.Header = "Продуктивность";
+				resultHead.FontSize = 13;
+				resultHead.ToolTip = "Введите результат";
+				resultHead.Margin = new Thickness(0, 0, 0, 10);
+
+				// Создание TextBox в первом GroupBox
+				resultBox.Name = "resultBox";
+				resultBox.Width = 185;
+				resultBox.Height = 30;
+
+				// Добавление TextBox в первый GroupBox
+				resultHead.Content = resultBox;
+
+				// Создание второго GroupBox
+				GroupBox pulseHead = new GroupBox();
+				pulseHead.Name = "pulseHead";
+				pulseHead.Header = "ЧСС";
+				pulseHead.FontSize = 13;
+				pulseHead.ToolTip = "Измерьте пульc за 10 сек";
+
+				// Создание TextBox во втором GroupBox
+				pulseBox.Name = "pulseBox";
+				pulseBox.Width = 185;
+				pulseBox.Height = 30;
+
+
+				// Добавление TextBox во второй GroupBox
+				pulseHead.Content = pulseBox;
+
+				// Добавление обоих GroupBox в StackPanel
+				stackPanel.Children.Add(resultHead);
+				stackPanel.Children.Add(pulseHead);
+			}
+			else if (disciplineType.SelectedIndex == 4)                                                                                 //Смешанные виды
+			{
+                addFunction(4);
+				setDisciplineContent.Visibility = Visibility.Visible;       //показывает второй комбобокс
+				minSwitcher.Visibility = Visibility.Visible;
+				// Создание первого GroupBox
+				GroupBox resultHead = new GroupBox();
+				resultHead.Name = "resultHead";
+				resultHead.Header = "Продуктивность";
+				resultHead.FontSize = 13;
+				resultHead.ToolTip = "Введите результат";
+				resultHead.Margin = new Thickness(0, 0, 0, 10);
+
+				// Создание TextBox в первом GroupBox
+				resultBox.Name = "resultBox";
+				resultBox.Width = 185;
+				resultBox.Height = 30;
+
+				// Добавление TextBox в первый GroupBox
+				resultHead.Content = resultBox;
+
+				// Создание второго GroupBox
+				GroupBox pulseHead = new GroupBox();
+				pulseHead.Name = "pulseHead";
+				pulseHead.Header = "ЧСС";
+				pulseHead.FontSize = 13;
+				pulseHead.ToolTip = "Измерьте пульc за 10 сек";
+
+				// Создание TextBox во втором GroupBox
+				pulseBox.Name = "pulseBox";
+				pulseBox.Width = 185;
+				pulseBox.Height = 30;
+
+
+				// Добавление TextBox во второй GroupBox
+				pulseHead.Content = pulseBox;
+
+				// Добавление обоих GroupBox в StackPanel
+				stackPanel.Children.Add(resultHead);
+				stackPanel.Children.Add(pulseHead);
+			}
+		}
         public double SetResultSec(int coef = 1)
         {
             if (double.TryParse(pulseBox.Text, out double temp))
@@ -410,7 +535,8 @@ namespace PsyhosomaticHealth
 		}
         public void ClearAll()
         {
-            colorBlock.Visibility = Visibility.Hidden;
+			disciplineTypeContent.Items.Clear();
+			colorBlock.Visibility = Visibility.Hidden;
             pulseBox.Text = string.Empty;
             resultBox.Text = string.Empty;
             textBlock.Text = string.Empty;
@@ -434,5 +560,13 @@ namespace PsyhosomaticHealth
         {
             return Math.Ceiling(result * 1000) / 1000;
         }
+        public void addFunction(int number)
+        {
+			List<DisciplinesTypes> temp = new List<DisciplinesTypes>();
+			FileFunct.ReadData(out temp);
+				foreach (DisciplinesTypes ex in temp)
+					if (ex.number == number)
+						disciplineTypeContent.Items.Add(ex.title);
+		}
     }
 }

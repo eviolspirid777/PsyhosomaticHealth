@@ -2,10 +2,12 @@
   {
     "title": "Упражнения силовой направленности",
     "maxValue": 34,
+    "number": 2,
     "dirProp": false
   },
   {
     "title": "Биоэкономичная ходьба",
+    "number": 3,
     "maxValue": 16.00,
     "dirProp": true
   }
