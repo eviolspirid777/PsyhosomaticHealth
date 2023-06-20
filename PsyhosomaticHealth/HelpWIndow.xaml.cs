@@ -30,16 +30,22 @@ namespace PsyhosomaticHealth
 
             switch (selectedContent)
             {
-                case "Item 1":
+                case "Условные обозначения":
                     contentTextBlock.Text = "This is the content for Item 1.";
                     break;
-                case "Item 2":
+                case "Расчетные формулы":
                     contentTextBlock.Text = "This is the content for Item 2.";
                     break;
-                case "Item 3":
+                case "Шкала золотой пропорции":
                     contentTextBlock.Text = "This is the content for Item 3.";
                     break;
-            }
+				case "Литература":
+					contentTextBlock.Text = "This is the content for Item 2.";
+					break;
+                default:
+                    contentTextBlock.Text = "Содержимое еще не доступно...";
+                    break;
+			}
         }
     }
 }

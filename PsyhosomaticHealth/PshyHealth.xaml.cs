@@ -307,7 +307,7 @@ namespace PsyhosomaticHealth
         public void HelpWindowClick(object sender, EventArgs e)                 //ОБРАБОТКА НАЖАТИЯ НА ОКНО ПОМОЩИ
         {
             HelpWIndow helpWIndow = new HelpWIndow();
-            helpWIndow.Show();
+            helpWIndow.Show();                                                                  //Реализовать отключение
         }
 		public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
         {

@@ -13,9 +13,10 @@
         </Grid.ColumnDefinitions>
 
         <ListBox x:Name="menuListBox" Grid.Column="0" SelectionChanged="MenuListBox_SelectionChanged">
-            <ListBoxItem>Item 1</ListBoxItem>
-            <ListBoxItem>Item 2</ListBoxItem>
-            <ListBoxItem>Item 3</ListBoxItem>
+            <ListBoxItem>Условные обозначения</ListBoxItem>
+            <ListBoxItem>Расчетные формулы</ListBoxItem>
+            <ListBoxItem>Шкала золотой пропорции</ListBoxItem>
+            <ListBoxItem>Литература</ListBoxItem>
         </ListBox>
 
         <TextBlock x:Name="contentTextBlock" Grid.Column="1" Margin="10" />
