@@ -63,7 +63,7 @@ namespace PsyhosomaticHealth
             setDiscipline.Visibility = Visibility.Visible;          //показывает поле для выбора дисциплины
             getResult.Visibility = Visibility.Visible;              //показывает клавишу получения результата
         }
-        public void ColorSet( double result)
+        public void ColorSet( double result)                                                            //ОКРАШИВАЕТ В ЦВЕТ
         {
             if (result > 1.618)
                 colorBlock.Background = new SolidColorBrush(Colors.Gold);
@@ -81,7 +81,7 @@ namespace PsyhosomaticHealth
                 colorBlock.Background = new SolidColorBrush(Colors.Red);                  //Предельная энергостоимость
 
 		}
-        public void TextAdd(double result)
+        public void TextAdd(double result)                                                  //ОЦЕНИВАЕТ ХАРАКТЕРИСТИКУ ПО РЕЗУЛЬТАТУ
         {
             textBlock.Text += "\nКачественная характеристика: ";        //Начало любой КАЧЕСТВЕННОЙ характеристики
 
@@ -129,21 +129,16 @@ namespace PsyhosomaticHealth
                 MessageBox.Show("Не смог открыть файл!", "Предупреждение");
             }
         }
-        public void addDiscipline_Click(object sender, RoutedEventArgs e)
+        public void addDiscipline_Click(object sender, RoutedEventArgs e)                               //ОБРАБОТКА ДОБАВЛЕНИЯ
         {
             addDiscipline discipline = new addDiscipline();
             discipline.Show();
             Close();
         }
-        public void newFile_Click(object sender, RoutedEventArgs e)                                                 //РЕАЛИЗОВАТЬ ФУНКЦИЮ ДЛЯ НОВОГО ФАЙЛА
+        public void newFile_Click(object sender, RoutedEventArgs e)                                                 //СОЗДАНИЕ НОВОГО ФАЙЛА
         {
             ShowFunctions();
             FuncSetEnable();
-        }
-        public static void SaveToJsonFile<T>(T data, string filePath)                                       //РЕАЛИЗОВАТЬ ФУНКЦИЮ ДО ЛОГИЧЕСКОГО КОНЦА
-        {
-            string jsonString = JsonSerializer.Serialize(data);
-            File.WriteAllText(filePath, jsonString);
         }
         public void buttonClick(object sender, RoutedEventArgs e)                       //вывод результата исчисления
         {
@@ -309,7 +304,7 @@ namespace PsyhosomaticHealth
 				}
             }
         }
-        public void HelpWindowClick(object sender, EventArgs e)
+        public void HelpWindowClick(object sender, EventArgs e)                 //ОБРАБОТКА НАЖАТИЯ НА ОКНО ПОМОЩИ
         {
             HelpWIndow helpWIndow = new HelpWIndow();
             helpWIndow.Show();
@@ -519,21 +514,21 @@ namespace PsyhosomaticHealth
 				stackPanel.Children.Add(pulseHead);
 			}
 		}
-        public double SetResultSec(int coef = 1)
+        public double SetResultSec(int coef = 1)                                                    //ФУНКЦИЯ ВЫЧИСЛЕНИЯ В СЕКУНДАХ
         {
             if (double.TryParse(pulseBox.Text, out double temp))
                 return coef / (100 * temp / 12);
             else
                 return 0;
         }
-        public double SetResultMin(int coef = 1)
+        public double SetResultMin(int coef = 1)                                            //ФУНКЦИЯ ВЫЧИСЛЕНИИ В СЕКУНДАХ
         {
 			if (double.TryParse(pulseBox.Text, out double temp))
 				return coef / (100 * temp / 72);
 			else
 				return 0;
 		}
-        public void ClearAll()
+        public void ClearAll()                                                          //ОЧИСТИТЬ ВСЕ ПОЛЯ
         {
 			disciplineTypeContent.Items.Clear();
 			colorBlock.Visibility = Visibility.Hidden;
@@ -543,18 +538,11 @@ namespace PsyhosomaticHealth
             comboBox.Items.Clear();
             stackPanel.Children.Clear();
         }
-        enum HumanState
+        enum HumanState                                 //ПЕРЕЧИСЛЕНИЕ СОСТОЯНИЙ
         {
             lying = 100,
             sitting = 103,
             staying = 106
-        }
-        public void AddDisciplines()
-        {
-            List <DisciplinesTypes> temp = new List <DisciplinesTypes>();
-            FileFunct.ReadData(out  temp);
-            foreach(DisciplinesTypes type in temp)
-                disciplineType.Items.Add(type.title);
         }
         public double Ceiling(double result)
         {

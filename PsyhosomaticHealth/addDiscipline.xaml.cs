@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using FileWorking;
 using Disciplines;
 using System.Threading;
+using System.Linq.Expressions;
 
 namespace PsyhosomaticHealth
 {
@@ -39,7 +40,8 @@ namespace PsyhosomaticHealth
                 flag = false;
             }
             temp.title = setTitleTextBox.Text;
-            if (reverseProgres.IsChecked == true)
+            setNum(temp);
+			if (reverseProgres.IsChecked == true)
                 temp.dirProp = true;
             if(straightProgres.IsChecked == true)
                 temp.dirProp = false;
@@ -60,5 +62,17 @@ namespace PsyhosomaticHealth
             psyhHealth.Show();
             this.Close();
         }
+        public void setNum(DisciplinesTypes temp)
+        {
+			if (setNumber.SelectedIndex == 0)
+				temp.number = 1;
+			if (setNumber.SelectedIndex == 1)
+				temp.number = 2;
+			if (setNumber.SelectedIndex == 2)
+				temp.number = 3;
+			if (setNumber.SelectedIndex == 3)
+				temp.number = 4;
+		}
+
     }
 }

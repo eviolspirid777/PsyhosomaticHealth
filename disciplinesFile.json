@@ -7,8 +7,8 @@
   },
   {
     "title": "Биоэкономичная ходьба",
+    "maxValue": 16,
     "number": 3,
-    "maxValue": 16.00,
     "dirProp": true
   }
 ]
