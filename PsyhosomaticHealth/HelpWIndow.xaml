@@ -13,12 +13,13 @@
         </Grid.ColumnDefinitions>
 
         <ListBox x:Name="menuListBox" Grid.Column="0" SelectionChanged="MenuListBox_SelectionChanged">
-            <ListBoxItem>Условные обозначения</ListBoxItem>
+            <ListBoxItem>Качественная характеристика</ListBoxItem>
             <ListBoxItem>Расчетные формулы</ListBoxItem>
             <ListBoxItem>Шкала золотой пропорции</ListBoxItem>
             <ListBoxItem>Литература</ListBoxItem>
         </ListBox>
-
-        <TextBlock x:Name="contentTextBlock" Grid.Column="1" Margin="10" />
+        <ScrollViewer Grid.Column="1" Margin="10">
+            <TextBlock x:Name="contentTextBlock" Grid.Column="1" Margin="10" />
+        </ScrollViewer>
     </Grid>
 </Window>

@@ -10,5 +10,11 @@
     "maxValue": 16,
     "number": 3,
     "dirProp": true
+  },
+  {
+    "title": "Бег 100м",
+    "maxValue": 7.7,
+    "number": 2,
+    "dirProp": true
   }
 ]

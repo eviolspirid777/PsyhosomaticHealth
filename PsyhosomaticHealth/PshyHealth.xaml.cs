@@ -142,7 +142,7 @@ namespace PsyhosomaticHealth
         }
         public void buttonClick(object sender, RoutedEventArgs e)                       //вывод результата исчисления
         {
-            List<DisciplinesTypes> disciplinesTemp = new List<DisciplinesTypes>();
+			List<DisciplinesTypes> disciplinesTemp = new List<DisciplinesTypes>();
             FileFunct.ReadData(out  disciplinesTemp);
             double result = 0;
             if (disciplineType.SelectedIndex == 0)
@@ -250,7 +250,8 @@ namespace PsyhosomaticHealth
                             }
                             else                                                    //обратная прогрессия  ДОПИСАТЬ!! ХОД МЫСЛЕЙ ТОТ ЖЕ!!!
                             {
-                                minValue = temp.maxValue * 161.8 / 100;
+								resultBox.Text = resultBox.Text.Replace(".", ",");
+								minValue = temp.maxValue * 161.8 / 100;
 								maxValue = temp.maxValue;
                                 while (result == 0)
                                 {
@@ -296,8 +297,8 @@ namespace PsyhosomaticHealth
                 if (result != 0)
                 {
                     colorBlock.Visibility = Visibility.Visible;
-                    textBlock.Text = $"Колличественный показатель {Convert.ToString(result)}.";
-                    ColorSet(result);
+                    textBlock.Text = $"Колличественный показатель: {Convert.ToString(result)}. ";
+					ColorSet(result);
                     TextAdd(result);
                     sportBlock.Text = $"Ваш уровень продуктивности: C{counter}";
 					counter = 3;                                //Возвращаем счетчик
@@ -537,6 +538,7 @@ namespace PsyhosomaticHealth
             textBlock.Text = string.Empty;
             comboBox.Items.Clear();
             stackPanel.Children.Clear();
+            sportBlock.Text =string.Empty;
         }
         enum HumanState                                 //ПЕРЕЧИСЛЕНИЕ СОСТОЯНИЙ
         {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Расчет" Height="470" Width="820" Background="White" ResizeMode="CanMinimize"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
+        Title="Расчет" Height="470" Width="825" Background="White" ResizeMode="CanMinimize"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
     <Grid>
         <Menu>
             <MenuItem Header="Файл">
@@ -28,7 +28,7 @@
         <GroupBox x:Name="setDisciplineContent" Margin="0,80,624,295" Header="Вид Спорта" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
             <ComboBox  x:Name="disciplineTypeContent" ToolTip="Выберите вид спорта" Height="27" />
         </GroupBox>
-        <TextBlock x:Name="textBlock" Width="600" Margin="200,20,20,74" FontSize="16" TextWrapping="Wrap"/>
+        <TextBlock x:Name="textBlock" Margin="202,20,30,74" FontSize="16" TextWrapping="Wrap"/>
         <StackPanel x:Name="stackPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" Height="118" Margin="0,150,0,0">
         </StackPanel>
         <CheckBox x:Name="minSwitcher" Width="100" Margin="24,292,696,103" Content="Минуты" Visibility="Hidden" FontSize="14"/>
