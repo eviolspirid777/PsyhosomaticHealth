@@ -1,0 +1,12 @@
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\bin\Debug\net7.0\ExcelExpressions.deps.json
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\bin\Debug\net7.0\ExcelExpressions.dll
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\bin\Debug\net7.0\ExcelExpressions.pdb
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.csproj.AssemblyReference.cache
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.GeneratedMSBuildEditorConfig.editorconfig
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.AssemblyInfoInputs.cache
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.AssemblyInfo.cs
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.csproj.CoreCompileInputs.cache
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.dll
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\refint\ExcelExpressions.dll
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ExcelExpressions.pdb
+F:\prjcts\PsyhosomatiKHealth\ExcelExpressions\obj\Debug\net7.0\ref\ExcelExpressions.dll
