@@ -34,3 +34,15 @@ F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.dll
 F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\refint\Disciplines.dll
 F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\Disciplines.pdb
 F:\prjcts\PsyhosomatiKHealth\Disciplines\obj\Debug\net7.0\ref\Disciplines.dll
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\bin\Debug\net7.0\Disciplines.deps.json
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\bin\Debug\net7.0\Disciplines.dll
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\bin\Debug\net7.0\Disciplines.pdb
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.AssemblyInfoInputs.cache
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.AssemblyInfo.cs
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.csproj.CoreCompileInputs.cache
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.sourcelink.json
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.dll
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\refint\Disciplines.dll
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\Disciplines.pdb
+D:\MyDocs\projects\PsyhoHealth\PsyhosomaticHealth\Disciplines\obj\Debug\net7.0\ref\Disciplines.dll

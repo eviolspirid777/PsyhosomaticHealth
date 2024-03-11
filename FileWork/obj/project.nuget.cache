@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "qkZz8laRTcI/inbaZVk3tMXPWmd+TCa84H9isI4wqhkFEQvjnkUZIj5DyjTvNCFFjjIcE+zUqrcVT1ZBL+dCyQ==",
+  "dgSpecHash": "fXr0NlOG1L427YU564c5QxLHzilm5Qyywa7GopX3VYfBGuYLLAUK6pnvWutcSjdbmEdur28ciV9Jyv3axckFDw==",
   "success": true,
-  "projectFilePath": "F:\\prjcts\\PsyhosomatiKHealth\\FileWork\\FileWork.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\MyDocs\\projects\\PsyhoHealth\\PsyhosomaticHealth\\FileWork\\FileWork.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\misyrin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.16\\microsoft.windowsdesktop.app.ref.7.0.16.nupkg.sha512",
+    "C:\\Users\\misyrin\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.16\\microsoft.netcore.app.ref.7.0.16.nupkg.sha512",
+    "C:\\Users\\misyrin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.16\\microsoft.aspnetcore.app.ref.7.0.16.nupkg.sha512"
+  ],
   "logs": []
 }

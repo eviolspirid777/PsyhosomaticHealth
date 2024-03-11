@@ -10,7 +10,6 @@
         "dependencies": {
           "Disciplines": "1.0.0",
           "EPPlus": "7.0.9",
-          "ExcelExpressions": "1.0.0",
           "FileWork": "1.0.0"
         },
         "runtime": {
@@ -194,11 +193,6 @@
           "Disciplines.dll": {}
         }
       },
-      "ExcelExpressions/1.0.0": {
-        "runtime": {
-          "ExcelExpressions.dll": {}
-        }
-      },
       "FileWork/1.0.0": {
         "dependencies": {
           "Disciplines": "1.0.0"
@@ -356,11 +350,6 @@
       "hashPath": "system.text.json.7.0.0.nupkg.sha512"
     },
     "Disciplines/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "ExcelExpressions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

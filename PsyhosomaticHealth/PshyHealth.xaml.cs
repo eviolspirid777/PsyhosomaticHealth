@@ -21,7 +21,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
-using ExcelExpressions;
+using System.Text.Json.Serialization;
 
 namespace PsyhosomaticHealth
 {
@@ -92,9 +92,10 @@ namespace PsyhosomaticHealth
 		TextBox pulseBox = new TextBox();           //Значение текстового поля pusleBox
 		TextBox resultBox = new TextBox();          //Значение текстового поля resultbox
 
-		public double minValue = 0;         //переменная, определяющая минимальное значение
+		public List<DisciplinesTypes> disciplineList;
+        public double minValue = 0;         //переменная, определяющая минимальное значение
 		public double maxValue = 0;     //переменная, определяющая максимальное значение
-		public int counter = 3;         //переменная, определяющая счетчик
+        public int counter = 3;         //переменная, определяющая счетчик
 
 		private bool isDragging = false;
 		private Point lastPosition;
@@ -109,7 +110,22 @@ namespace PsyhosomaticHealth
 			disciplineType.Items.Add("Смешанные виды");
 			//AddDisciplines();
 		}
-		public void ShowFunctions()
+        public static string GetExcelColumnName(int columnNumber)
+        {
+            int dividend = columnNumber;
+            string columnName = String.Empty;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo) + columnName;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+
+            return columnName;
+        }
+        public void ShowFunctions()
 		{
 			setDiscipline.Visibility = Visibility.Visible;          //показывает поле для выбора дисциплины
 			getResult.Visibility = Visibility.Visible;              //показывает клавишу получения результата
@@ -212,7 +228,6 @@ namespace PsyhosomaticHealth
 			/*printFile.Cursor = Cursors.;  Вопрос с курсорами нужно еще решить, когда файл неактивен*/
 			saveFile.IsEnabled = true;
 			saveFileAs.IsEnabled = true;
-			excelExport.IsEnabled = true;
 		}
 		private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
@@ -233,8 +248,8 @@ namespace PsyhosomaticHealth
 				double diffX = currentPosition.X - lastPosition.X;
 				double diffY = currentPosition.Y - lastPosition.Y;
 
-				double newLeft = this.Left + currentPosition.X;
-				double newTop = this.Top + currentPosition.Y;
+				double newLeft = this.Left + diffX;
+				double newTop = this.Top + diffY;
 
 				DoubleAnimation anim1 = new DoubleAnimation(newLeft, TimeSpan.FromMilliseconds(0));
 				this.BeginAnimation(Window.LeftProperty, anim1);
@@ -303,7 +318,7 @@ namespace PsyhosomaticHealth
 				switch (disciplineType.SelectedIndex)
 				{
 					case 0:
-					{
+						{
 							worksheet.Cells["A1"].Value = "Энергостоимость";
 							worksheet.Cells["A2"].Value = "Ф";
 							worksheet.Cells["A5"].Value = "ЧСС";
@@ -362,60 +377,98 @@ namespace PsyhosomaticHealth
 								worksheet.Cells[$"F{i}"].Formula = $"=F5/C{i}";
 							}
 
-						var file = new FileInfo($"tableResults-{Guid.NewGuid()}.xlsx");
-						package.SaveAs(file);
-						break;
-					}
+							var file = new FileInfo($"tableResults-{Guid.NewGuid()}.xlsx");
+							package.SaveAs(file);
+							break;
+						}
 					case 1:
 					case 2:
 					case 3:
 					case 4:
-					{
-						worksheet.Cells["A1"].Value = "Энергостоимость";
-						worksheet.Cells["B2"].Value = "Ф";
-						worksheet.Cells["A3"].Value = "ЧСС";
-						worksheet.Cells["C3"].Value = "У(%)";
-						worksheet.Cells["C1"].Value = "Продуктивность";
-
-						var percentResult = 100;
-						int currentColumnIndex = 4;
-
-						//Ошибка! Нужно итерировать исходя из кол-ва раз, а не процентов(проценты должны высчитываться)
-						while (percentResult <= 162)
 						{
-							worksheet.Cells[3, currentColumnIndex].Value = percentResult;
-							percentResult++;
-							currentColumnIndex++; // Переходим к следующему столбцу
-						}
+							worksheet.Cells["A1"].Value = "Энергостоимость";
+							worksheet.Cells["B2"].Value = "Ф";
+							worksheet.Cells["A3"].Value = "ЧСС";
+							worksheet.Cells["C3"].Value = "У(%)";
+							worksheet.Cells["C2"].Value = "Продуктивность";
 
-						for (int i = 10; i <= 45; i++)
-						{
-							worksheet.Cells[$"A{i-6}"].Value = i;
-						}
+							int productivityResult = Convert.ToInt32(disciplineList.Find(p => p.title == disciplineTypeContent.Text)!.maxValue);
 
-						for(int i = 4; i <= 39; i++)
-						{
-							worksheet.Cells[$"C{i}"].Formula = $"=100*A{i}/14";
-							if (i == 8)
+							/*                        worksheet.Cells[1,1, 39, productivityResult + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
+													worksheet.Cells[1, 1, 39, productivityResult + 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightSlateGray);
+
+													worksheet.Cells["C4:C39"].Style.Fill.PatternType = ExcelFillStyle.Solid;
+													worksheet.Cells["C4:C39"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+													worksheet.Cells[3,productivityResult].Style.Fill.PatternType = ExcelFillStyle.Solid;
+													worksheet.Cells[3, productivityResult].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+
+													worksheet.Cells[4,4,39,productivityResult].Style.Fill.PatternType = ExcelFillStyle.Solid;
+													worksheet.Cells[4, 4, 39, productivityResult].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);*/
+
+							worksheet.Cells[1, 1, 39, productivityResult + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
+							worksheet.Cells["A1:B39"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGray);
+							worksheet.Cells[1, 1, 2, productivityResult + 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGray);
+							worksheet.Cells["C4:C39"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkSlateGray);
+							worksheet.Cells[3, 3, 3, productivityResult + 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkSlateGray);
+							worksheet.Cells[4, 4, 39, productivityResult + 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DimGray);
+
+							var changeLevelValue = productivityResult * 100 / 162;
+							int endColumn = productivityResult + 3;
+							int interMaxValue = productivityResult;
+
+							//Ошибка! Нужно итерировать исходя из кол-ва раз, а не процентов(проценты должны высчитываться)
+							while (productivityResult != 0)
 							{
-								worksheet.Cells[$"B{i}"].Value = $"B (0)"; //В-уровень
-								continue;
+								worksheet.Cells[2, productivityResult + 3].Value = productivityResult;
+								productivityResult--; // Переходим к следующему столбцу
 							}
-							worksheet.Cells[$"B{i}"].Value = $"B ({(i < 8 ? '-' : '+')})"; //В-уровень
+
+							while (Convert.ToInt32(worksheet.Cells[2, endColumn].Value) != changeLevelValue)
+							{
+								if (Convert.ToInt32(worksheet.Cells[2, endColumn].Value) == interMaxValue)
+								{
+									worksheet.Cells[3, endColumn].Value = 162;
+									for (int i = 4; i <= 39; i++)
+									{
+										worksheet.Cells[i, endColumn].Formula = $"={GetExcelColumnName(endColumn)}3 / C{i}";
+									}
+									endColumn--;
+									continue;
+								}
+								for (int i = 4; i <= 39; i++)
+								{
+									worksheet.Cells[i, endColumn].Formula = $"={GetExcelColumnName(endColumn)}3 / C{i}";
+								}
+								worksheet.Cells[3, endColumn].Value = 162 * Convert.ToInt32(worksheet.Cells[2, endColumn].Value) / interMaxValue;
+								endColumn--;
+							}
+
+							for (int i = 10; i <= 45; i++)
+							{
+								worksheet.Cells[$"A{i - 6}"].Value = i;
+							}
+
+							for (int i = 4; i <= 39; i++)
+							{
+								worksheet.Cells[$"C{i}"].Formula = $"=100*A{i}/14";
+								if (i == 8)
+								{
+									worksheet.Cells[$"B{i}"].Value = $"B (0)"; //В-уровень
+									continue;
+								}
+								worksheet.Cells[$"B{i}"].Value = $"B ({(i < 8 ? '-' : '+')})"; //В-уровень
+							}
+
+
+							var file = new FileInfo($"tableResults-{Guid.NewGuid()}.xlsx");
+							package.SaveAs(file);
+							break;
 						}
-
-/*                            //Проработать вариант, с размерностью таблицы
-                        worksheet.Cells["A1:AJ"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-						worksheet.Cells["A1:AJ"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightSlateGray);*/
-
-						var file = new FileInfo($"tableResults-{Guid.NewGuid()}.xlsx");
-						package.SaveAs(file);
-						break;
-					}
 					default:
-					{
-						break;
-					}
+						{
+							break;
+						}
 				}
 			}
 		}
@@ -432,8 +485,8 @@ namespace PsyhosomaticHealth
 		}
 		public void buttonClick(object sender, RoutedEventArgs e)                       //вывод результата исчисления
 		{
-			List<DisciplinesTypes> disciplinesTemp = new List<DisciplinesTypes>();
-			FileFunct.ReadData(out disciplinesTemp);
+            excelExport.IsEnabled = true;
+			FileFunct.ReadData(out disciplineList);
 			double result = 0;
 			if (disciplineType.SelectedIndex == 0)
 			{
@@ -491,11 +544,11 @@ namespace PsyhosomaticHealth
 				}
 			}
 
-			else if (disciplinesTemp.Any(temp => temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
+			else if (disciplineList.Any(temp => temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
 			{
 				if ((Convert.ToInt32(pulseBox.Text) >= 10 && Convert.ToInt32(pulseBox.Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 60 && Convert.ToInt32(pulseBox.Text) <= 216 && minSwitcher.IsChecked == true))       //проверка границ ПУЛЬСА
 				{
-					foreach (DisciplinesTypes temp in disciplinesTemp)
+					foreach (DisciplinesTypes temp in disciplineList)
 					{
 						if (temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString())
 						{

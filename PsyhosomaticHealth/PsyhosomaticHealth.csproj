@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Disciplines\Disciplines.csproj" />
-    <ProjectReference Include="..\ExcelExpressions\ExcelExpressions.csproj" />
     <ProjectReference Include="..\FileWork\FileWork.csproj" />
   </ItemGroup>
 
