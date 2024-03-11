@@ -5,20 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Помощь" Height="450" Width="800" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
+        Title="Помощь" Height="450" Width="800" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico" WindowStyle="None">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
-        <ListBox x:Name="menuListBox" Grid.Column="0" SelectionChanged="MenuListBox_SelectionChanged">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="#549438" MouseLeftButtonDown="OnPreviewMouseLeftButtonDown" MouseMove="OnPreviewMouseMove" MouseLeftButtonUp="OnPreviewMouseLeftButtonUp" Height="20px">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Arial" FontWeight="ExtraBold">Справка</TextBlock>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="closeWindow">x</Button>
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="fullscreenWindow">F</Button>
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="hideWindow">_</Button>
+            </StackPanel>
+        </Grid>
+        <ListBox x:Name="menuListBox" Grid.Column="0" Grid.Row="2" SelectionChanged="MenuListBox_SelectionChanged" >
             <ListBoxItem>Качественная характеристика</ListBoxItem>
             <ListBoxItem>Расчетные формулы</ListBoxItem>
             <ListBoxItem>Шкала золотой пропорции</ListBoxItem>
             <ListBoxItem>Литература</ListBoxItem>
         </ListBox>
-        <ScrollViewer Grid.Column="1" Margin="10">
+        <GridSplitter VerticalAlignment="Stretch" Width="2px" Grid.Row="1"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock x:Name="contentTextBlock" Grid.Column="1" Margin="10" />
         </ScrollViewer>
     </Grid>

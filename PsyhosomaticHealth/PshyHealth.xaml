@@ -5,15 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Расчет" Height="470" Width="825" Background="White" ResizeMode="CanMinimize"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico">
-    <Grid>
-        <Menu>
+        Title="Расчет" Height="470" Width="825"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico" WindowStyle="None" PreviewKeyDown="Window_PreviewKeyDown">
+    <Grid x:Name="QWe">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="headerMenu" Height="20px"></RowDefinition>
+            <RowDefinition Height="20px"></RowDefinition>
+            <RowDefinition Height="50px"></RowDefinition>
+            <RowDefinition Height="50px"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50px"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.ColumnSpan="2" Background="#549438" MouseLeftButtonDown="OnPreviewMouseLeftButtonDown" MouseMove="OnPreviewMouseMove" MouseLeftButtonUp="OnPreviewMouseLeftButtonUp" Height="20px">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Arial" FontWeight="ExtraBold">Биоэкономическая диагностика здравоукрепления</TextBlock>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="closeWindow">x</Button>
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="fullscreenWindow">F</Button>
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="hideWindow">_</Button>
+            </StackPanel>
+        </Grid>
+        <Menu Grid.Row="1" Grid.ColumnSpan="2" >
             <MenuItem Header="Файл">
                 <MenuItem x:Name="newFile" Header="Новый" Click="newFile_Click"/>
+                <Separator />
                 <MenuItem x:Name="openFile" Header="Открыть" Click="openFile_Click"/>
                 <MenuItem x:Name="saveFile" Header="Сохранить" IsEnabled="False"/>
-                <MenuItem x:Name="saveFileAs" Header="Сохранить как" IsEnabled="False"/>
+                <MenuItem x:Name="saveFileAs" Header="Сохранить как" IsEnabled="False" />
+                <Separator />
+                <MenuItem x:Name="excelExport" Header="Выгрузить в .csv" IsEnabled="False" Click="exportFile"/>
                 <MenuItem x:Name="printFile" Header="Печать" IsEnabled="False"/>
+                <Separator />
                 <MenuItem x:Name="closeApp" Header="Выход"/>
             </MenuItem>
             <MenuItem x:Name="typesDiscipline" Header="Вид Деятельности" IsEnabled="True">
@@ -22,18 +50,98 @@
             </MenuItem>
             <MenuItem x:Name="help" Header="Справка" Click="HelpWindowClick"/>
         </Menu>
-        <GroupBox x:Name="setDiscipline" Margin="0,20,624,360" Header="Вид Деятельности" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
+        <GroupBox x:Name="setDiscipline" Header="Вид Деятельности" FontSize="13"  FontStyle="Italic" Visibility="Hidden" HorizontalAlignment="Left" Height="50px" Width="250px" Grid.Column="0" Grid.Row="2">
             <ComboBox  x:Name="disciplineType" ToolTip="Выберите вид деятельности" Height="27" SelectionChanged="SelectionFunction"/>
         </GroupBox>
-        <GroupBox x:Name="setDisciplineContent" Margin="0,80,624,295" Header="Вид Спорта" FontSize="14"  FontStyle="Italic" Visibility="Hidden">
+        <GroupBox x:Name="setDisciplineContent" Header="Вид Спорта" FontSize="13"  FontStyle="Italic" Visibility="Hidden" HorizontalAlignment="Left" Height="50px" Width="250px" Grid.Column="0" Grid.Row="3">
             <ComboBox  x:Name="disciplineTypeContent" ToolTip="Выберите вид спорта" Height="27" />
         </GroupBox>
-        <TextBlock x:Name="textBlock" Margin="202,20,30,74" FontSize="16" TextWrapping="Wrap"/>
-        <StackPanel x:Name="stackPanel" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" Height="118" Margin="0,150,0,0">
-        </StackPanel>
-        <CheckBox x:Name="minSwitcher" Width="100" Margin="24,292,696,103" Content="Минуты" Visibility="Hidden" FontSize="14"/>
-        <Button x:Name="getResult" Margin="10,387,625,10" Content="Расчитать" Background="#549438" FontSize="14" Click="buttonClick" Visibility="Hidden" IsDefault="True"/>
-        <TextBlock x:Name="colorBlock" Width="50" Height="57.04" Margin="221,387,549,10" IsEnabled="False" />
-        <TextBlock x:Name="sportBlock" Margin="291,398,256,0" Visibility="Visible" VerticalAlignment="Top" FontSize="13" FontWeight="Bold"/>
+        <Grid x:Name="ratioTable" Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" Margin="5" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="startTraining" Foreground="Red" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">BEGINNING</TextBlock>
+                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
+                <TextBlock x:Name="quanValueStart" Foreground="Red" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">0,781</TextBlock>
+                <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
+                <TextBlock x:Name="qualValueStart" Foreground="Red" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE DEFICIT</TextBlock>
+                <TextBlock x:Name="valueRecomendationStart" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
+                        <TextBlock FontSize="12" FontWeight="Bold" Foreground="Red" FontStyle="Oblique" FontFamily="Arial">Large deficit of organismal health (0.853 - 0.618)</TextBlock> - average entropic energy cost of performed psyhomotor activity in the scale of golden proportion
+                    </TextBlock>
+                <Button x:Name="buttonStart" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="Green" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">PSYHOMOTOR EXERCISES</TextBlock>
+                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
+                <TextBlock Foreground="Green" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,201</TextBlock>
+                <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
+                <TextBlock Foreground="Green" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">Small</TextBlock>
+                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
+                        <TextBlock FontSize="12" FontWeight="Bold" Foreground="Green" FontStyle="Oblique" FontFamily="Arial">Small reserve of organism sanitaion (1.000 - 1.236)</TextBlock> - moderate non-entropic energy cost of performed psyhomotor activity in the scale of golden proportion.
+                    </TextBlock>
+                <Button Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="DarkGreen" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">ENDING</TextBlock>
+                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
+                <TextBlock Foreground="DarkGreen" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,334</TextBlock>
+                <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
+                <TextBlock Foreground="DarkGreen" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE RESERVE</TextBlock>
+                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
+                        <TextBlock FontSize="12" FontWeight="Bold" Foreground="DarkGreen" FontStyle="Oblique" FontFamily="Arial">Large reserve of organism's health (1.237 - 1.599)</TextBlock> - stable high non-entropic energy cost of performed psyhomotor activity in the scale of golden ratio.
+                    </TextBlock>
+                <Button Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+            </Grid>
+            <TextBlock x:Name="textBlock" FontSize="15" TextWrapping="Wrap" Grid.ColumnSpan="2" Visibility="Hidden"/>
+        </Grid>
+        <Grid Grid.Column="0" Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="stackPanel" VerticalAlignment="Bottom" Height="200px" Width="255px" HorizontalAlignment="Left" Grid.Row="0" />
+            <CheckBox x:Name="minSwitcher" Width="100" Content="Минуты" Visibility="Hidden" FontSize="13" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1"/>
+        </Grid>
+        <Button x:Name="getResult" Width="255px" Height="50" Content="Расчитать" Background="#549438" FontSize="13" Click="buttonClick" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsDefault="True" Grid.Column="0" Grid.Row="5"/>
     </Grid>
 </Window>

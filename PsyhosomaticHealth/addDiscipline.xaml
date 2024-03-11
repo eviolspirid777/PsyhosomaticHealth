@@ -5,29 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Добавить дисциплину" FontSize="10" Height="284" Width="359" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico" ResizeMode="NoResize">
+        Title="Добавить дисциплину" FontSize="10" Height="300" Width="380" Icon="/vitruvianskij_chelovek_igevgex3djjh.ico" WindowStyle="None">
     <Grid>
-        <StackPanel MaxHeight="400" MaxWidth="820" Margin="0,14,0,0">
-            <GroupBox Header="Выберите тип" Width="338" HorizontalAlignment="Left" FontSize="10" FontFamily="Arial" FontStyle="Italic">
-                <ComboBox x:Name="setNumber" Margin="0,5,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20px"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#549438" MouseLeftButtonDown="OnPreviewMouseLeftButtonDown" MouseMove="OnPreviewMouseMove" MouseLeftButtonUp="OnPreviewMouseLeftButtonUp" Height="20px">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock  Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Arial" FontWeight="ExtraBold">Добавить дисциплину</TextBlock>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft">
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="closeWindow">x</Button>
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="fullscreenWindow">F</Button>
+                <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="hideWindow">_</Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel x:Name="StuckBrother" VerticalAlignment="Top" Grid.Row="1">
+            <GroupBox Header="Выберите тип" Width="{Binding Path=ActualWidth, ElementName=StuckBrother}" HorizontalAlignment="Center" FontSize="14" FontFamily="Arial" FontStyle="Italic">
+                <ComboBox x:Name="setNumber">
                     <ComboBoxItem Content="Биоэкономинчная психомоторная гимнастика"/>
                     <ComboBoxItem Content="Циклические виды"/>
                     <ComboBoxItem Content="Ациклические виды"/>
                     <ComboBoxItem Content="Смешанные виды"/>
                 </ComboBox>
             </GroupBox>
-            <GroupBox x:Name="setTitle" Header="Название дисциплины" FontSize="10" FontStyle="Italic" Width="337" HorizontalAlignment="Left" Height="37" Margin="0,5,0,0">
-                <TextBox x:Name="setTitleTextBox" />
+            <GroupBox x:Name="setTitle" Header="Название дисциплины" FontSize="14" FontStyle="Italic" Width="{Binding Path=ActualWidth, ElementName=StuckBrother}" HorizontalAlignment="Center">
+                <TextBox x:Name="setTitleTextBox"/>
             </GroupBox>
-            <GroupBox x:Name="setMaxValue" Margin="0,5,0,0" Header="Максимальное значение(КМС)" FontSize="10" FontStyle="Italic" Width="337" HorizontalAlignment="Left" Height="37">
+            <GroupBox x:Name="setMaxValue" Header="Максимальное значение(КМС)" FontSize="14" FontStyle="Italic" Width="{Binding Path=ActualWidth, ElementName=StuckBrother}" HorizontalAlignment="Center">
                 <TextBox x:Name="setMaxValueTextBox" />
             </GroupBox>
-            <RadioButton x:Name="reverseProgres" Content="Обратная прогрессия" Width="141" Margin="0,15,0,0"/>
-            <RadioButton x:Name="straightProgres" Content="Прямая прогрессия" Width="141"/>
-            <Grid Width="814" Height="123" >
-                <Button Width="156" Content="Отменить" Margin="10,16,0,69" HorizontalAlignment="Left" Click="cancel_Click" IsCancel="True" Height="38" Background="Green" Foreground="White" FontSize="12"/>
-                <Button Content="Принять" Margin="178,16,480,69" Click="enter_Click" IsEnabled="True" Height="38" Background="Green" Foreground="White" FontSize="12"/>
-            </Grid>
         </StackPanel>
+        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <RadioButton x:Name="reverseProgres" Content="Обратная прогрессия" FontSize="14"/>
+            <RadioButton x:Name="straightProgres" Content="Прямая прогрессия" FontSize="14" Margin="0,4,0,0"/>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Content="Отменить" Click="cancel_Click" IsCancel="True" Background="Green" Foreground="White" FontSize="12" Grid.Column="0"/>
+            <Button Content="Принять" Click="enter_Click" IsEnabled="True" Background="Green" Foreground="White" FontSize="12" Grid.Column="1"/>
+        </Grid>
     </Grid>
 </Window>
