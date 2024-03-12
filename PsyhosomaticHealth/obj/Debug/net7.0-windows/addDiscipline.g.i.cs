@@ -117,7 +117,7 @@ namespace PsyhosomaticHealth {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PsyhosomaticHealth;V1.0.0.0;component/adddiscipline.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PsyhosomaticHealth;component/adddiscipline.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\addDiscipline.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

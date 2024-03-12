@@ -69,7 +69,7 @@ namespace PsyhosomaticHealth {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PsyhosomaticHealth;V1.0.0.0;component/helpwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PsyhosomaticHealth;component/helpwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\HelpWIndow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -22,6 +22,7 @@ using OfficeOpenXml.Style;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace PsyhosomaticHealth
 {
@@ -30,7 +31,8 @@ namespace PsyhosomaticHealth
 	/// </summary>
 	public partial class PsyhHealth : Window
 	{
-		public enum ratioStates
+        #region EnumDictionaries
+        public enum ratioStates
 		{
 			over_gold = 0,
 			gold,
@@ -40,8 +42,14 @@ namespace PsyhosomaticHealth
 			big_deficit,
 			below_low
 		}
+        enum HumanState                                 //ПЕРЕЧИСЛЕНИЕ СОСТОЯНИЙ
+        {
+            lying = 100,
+            sitting = 103,
+            staying = 106
+        }
 
-		public readonly Dictionary<ratioStates, string> data = new Dictionary<ratioStates, string>
+        public readonly Dictionary<ratioStates, string> data = new Dictionary<ratioStates, string>
 		{
 			[ratioStates.over_gold] = "Выше ЗОЛОТОЙ ПРОПОРЦИИ - предельная негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается стабильным целостным благоприятным состоянием организма, чувством удовлетворения, психологического и телесного комфорта. Характеризует оптимальный максимум гармоничности и экономичности жизнедеятельности организма. Объём выполняемой психомоторной нагрузки характеризуется возможностью её оптимального увеличения в соответствии с индивидуальными адаптационными возможностями организма в диапазоне негэнтропийных энергетических затрат.",
 			[ratioStates.gold] = "ЗОЛОТАЯ ПРОПОРЦИЯ - –наивысшая негэнтропийная энергостоимость выполняемой психомоторной деятельности в шкале золотой пропорции: - сопровождается стабильным целостным благоприятным состоянием организма, чувством удовлетворения, эйфории, психологического и телесного комфорта. Характеризует оптимальный максимум гармоничности и экономичности жизнедеятельности организма. Выполняемый объём психомоторной нагрузки полностью соответствует оптимальным индивидуальным адаптационным возможностям организма.",
@@ -73,8 +81,10 @@ namespace PsyhosomaticHealth
 			["dark_red"] = Colors.DarkRed,
 			["red"] = Colors.Red
 		};
+        #endregion EnumDictionaries
 
-		public const double c_deficitLMin = 0.618;
+        #region constants
+        public const double c_deficitLMin = 0.618;
 		public const double c_deficitLMax = 0.849;
 		public const double c_deficitBMin = 0.850;
 		public const double c_deficitBMax = 0.999;
@@ -85,14 +95,22 @@ namespace PsyhosomaticHealth
 		public const double c_reserveBMax = 1.599;
 		public const double c_goldProportionMin = 1.600;
 		public const double c_goldProportionMax = 1.618;
+        #endregion constants
 
+        #region resultPulseBoxes
+        const int countOfFieds = 3;
 		ComboBox comboBox = new ComboBox();
-		GroupBox resultHead = new GroupBox();
-		GroupBox pulseHead = new GroupBox();
-		TextBox pulseBox = new TextBox();           //Значение текстового поля pusleBox
-		TextBox resultBox = new TextBox();          //Значение текстового поля resultbox
+		/*GroupBox resultGroupBox = new GroupBox();*/
+		GroupBox [] resultGroupBoxes = new GroupBox[countOfFieds];
+		GroupBox [] pulseGroupBoxes = new GroupBox[countOfFieds];
+		TextBox [] pulseTextBoxes = new TextBox[countOfFieds];
+		TextBox [] resultTextBoxes = new TextBox[countOfFieds];
+        /*GroupBox pulseGroupBox = new GroupBox();*/
+        /*		TextBox pulseTextBox = new TextBox();           //Значение текстового поля pusleBox
+				TextBox resultTextBox = new TextBox();          //Значение текстового поля resultTextBox*/
+        #endregion resultPusleBoxes
 
-		public List<DisciplinesTypes> disciplineList;
+        public List<DisciplinesTypes> disciplineList;
         public double minValue = 0;         //переменная, определяющая минимальное значение
 		public double maxValue = 0;     //переменная, определяющая максимальное значение
         public int counter = 3;         //переменная, определяющая счетчик
@@ -110,25 +128,171 @@ namespace PsyhosomaticHealth
 			disciplineType.Items.Add("Смешанные виды");
 			//AddDisciplines();
 		}
-        public static string GetExcelColumnName(int columnNumber)
-        {
-            int dividend = columnNumber;
-            string columnName = String.Empty;
-            int modulo;
-
-            while (dividend > 0)
-            {
-                modulo = (dividend - 1) % 26;
-                columnName = Convert.ToChar(65 + modulo) + columnName;
-                dividend = (int)((dividend - modulo) / 26);
-            }
-
-            return columnName;
-        }
         public void ShowFunctions()
 		{
 			setDiscipline.Visibility = Visibility.Visible;          //показывает поле для выбора дисциплины
 			getResult.Visibility = Visibility.Visible;              //показывает клавишу получения результата
+
+        }
+        #region ColorSetFunctions
+        public void ColorSet(double result, int i)                                                            //ОКРАШИВАЕТ В ЦВЕТ
+		{
+			switch (i)
+			{
+				case 0:
+                    if (result > 1.618)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["gold"]);
+                        buttonStart.Background = new SolidColorBrush(colours["gold"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["gold"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["gold"]);
+                    }
+                    else if (result >= 1.600 && result <= 1.618)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["green"]);
+                        buttonStart.Background = new SolidColorBrush(colours["green"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["green"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["green"]);
+                    }
+                    else if (result >= 1.250 && result <= 1.599)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                        buttonStart.Background = new SolidColorBrush(colours["green_yellow"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                    }
+                    else if (result >= 1 && result <= 1.249)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                        buttonStart.Background = new SolidColorBrush(colours["yellow_green"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                    }
+                    else if (result >= 0.850 && result <= 0.999)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["yellow"]);
+                        buttonStart.Background = new SolidColorBrush(colours["yellow"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["yellow"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["yellow"]);
+                    }
+                    else if (result >= 0.618 && result <= 0.849)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["dark_red"]);
+                        buttonStart.Background = new SolidColorBrush(colours["dark_red"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["dark_red"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["dark_red"]);
+                    }
+                    else if (result <= 0.617)
+                    {
+                        startTraining.Foreground = new SolidColorBrush(colours["red"]);
+                        buttonStart.Background = new SolidColorBrush(colours["red"]);
+                        qualValueStart.Foreground = new SolidColorBrush(colours["red"]);
+                        quanValueStart.Foreground = new SolidColorBrush(colours["red"]);
+                    }
+                    break;
+				case 1:
+                    if (result > 1.618)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["gold"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["gold"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["gold"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["gold"]);
+                    }
+                    else if (result >= 1.600 && result <= 1.618)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["green"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["green"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["green"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["green"]);
+                    }
+                    else if (result >= 1.250 && result <= 1.599)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["green_yellow"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                    }
+                    else if (result >= 1 && result <= 1.249)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["yellow_green"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                    }
+                    else if (result >= 0.850 && result <= 0.999)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["yellow"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["yellow"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["yellow"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["yellow"]);
+                    }
+                    else if (result >= 0.618 && result <= 0.849)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["dark_red"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["dark_red"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["dark_red"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["dark_red"]);
+                    }
+                    else if (result <= 0.617)
+                    {
+                        centerTraining.Foreground = new SolidColorBrush(colours["red"]);
+                        buttonCenter.Background = new SolidColorBrush(colours["red"]);
+                        qualValueCenter.Foreground = new SolidColorBrush(colours["red"]);
+                        quanValueCenter.Foreground = new SolidColorBrush(colours["red"]);
+                    }
+                    break;
+				case 2:
+                    if (result > 1.618)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["gold"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["gold"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["gold"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["gold"]);
+                    }
+                    else if (result >= 1.600 && result <= 1.618)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["green"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["green"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["green"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["green"]);
+                    }
+                    else if (result >= 1.250 && result <= 1.599)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["green_yellow"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["green_yellow"]);
+                    }
+                    else if (result >= 1 && result <= 1.249)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["yellow_green"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["yellow_green"]);
+                    }
+                    else if (result >= 0.850 && result <= 0.999)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["yellow"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["yellow"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["yellow"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["yellow"]);
+                    }
+                    else if (result >= 0.618 && result <= 0.849)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["dark_red"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["dark_red"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["dark_red"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["dark_red"]);
+                    }
+                    else if (result <= 0.617)
+                    {
+                        endTraining.Foreground = new SolidColorBrush(colours["red"]);
+                        buttonEnd.Background = new SolidColorBrush(colours["red"]);
+                        qualValueEnd.Foreground = new SolidColorBrush(colours["red"]);
+                        quanValueEnd.Foreground = new SolidColorBrush(colours["red"]);
+                    }
+                    break;
+			}
 		}
 		public void ColorSet(double result)                                                            //ОКРАШИВАЕТ В ЦВЕТ
 		{
@@ -182,46 +346,90 @@ namespace PsyhosomaticHealth
 				quanValueStart.Foreground = new SolidColorBrush(colours["red"]);
 			}
 		}
-		public void TextAdd(double result)                                                  //ОЦЕНИВАЕТ ХАРАКТЕРИСТИКУ ПО РЕЗУЛЬТАТУ
-		{
-			textBlock.Text += "\nКачественная характеристика: ";        //Начало любой КАЧЕСТВЕННОЙ характеристики
+        #endregion ColorSetFunctions
 
-			if (result > 1.618)
+        #region TextAddFunctions
+        /// <summary>
+        /// Оценивает характеристику по результату
+        /// </summary>
+        /// <param name="result">результат</param>
+        /// <param name="i">порядковый номер</param>
+        public void TextAdd(double result, int i)
+		{
+			switch (i)
 			{
-				textBlock.Text += data[ratioStates.over_gold];
-				qualValueStart.Text = ratios[ratioStates.over_gold];
-			}
-			if (result >= 1.600 && result <= 1.618)
-			{
-				textBlock.Text += data[ratioStates.gold];
-				qualValueStart.Text = ratios[ratioStates.gold];
-			}
-			if (result >= 1.250 && result <= 1.599)
-			{
-				textBlock.Text += data[ratioStates.big_reserve];
-				qualValueStart.Text = ratios[ratioStates.big_reserve];
-			}
-			if (result >= 1 && result <= 1.249)
-			{
-				textBlock.Text += data[ratioStates.low_reserve];
-				qualValueStart.Text = ratios[ratioStates.low_reserve];
-			}
-			if (result >= 0.850 && result <= 0.999)
-			{
-				textBlock.Text += data[ratioStates.low_defecit];
-				qualValueStart.Text = ratios[ratioStates.low_defecit];
-			}
-			if (result >= 0.618 && result <= 0.849)
-			{
-				textBlock.Text += data[ratioStates.big_deficit];
-				qualValueStart.Text = ratios[ratioStates.big_deficit];
-			}
-			if (result <= 0.617)
-			{
-				textBlock.Text += data[ratioStates.below_low];
-				qualValueStart.Text = ratios[ratioStates.below_low];
+				case 0:
+                    if (result > 1.618)
+                        qualValueStart.Text = ratios[ratioStates.over_gold];
+                    else if (result >= 1.600 && result <= 1.618)
+                        qualValueStart.Text = ratios[ratioStates.gold];
+                    else if (result >= 1.250 && result <= 1.599)
+                        qualValueStart.Text = ratios[ratioStates.big_reserve];
+                    else if (result >= 1 && result <= 1.249)
+                        qualValueStart.Text = ratios[ratioStates.low_reserve];
+                    else if (result >= 0.850 && result <= 0.999)
+                        qualValueStart.Text = ratios[ratioStates.low_defecit];
+                    else if (result >= 0.618 && result <= 0.849)
+                        qualValueStart.Text = ratios[ratioStates.big_deficit];
+                    else if (result <= 0.617)
+                        qualValueStart.Text = ratios[ratioStates.below_low];
+                    break;
+				case 1:
+                    if (result > 1.618)
+                        qualValueCenter.Text = ratios[ratioStates.over_gold];
+                    else if (result >= 1.600 && result <= 1.618)
+                        qualValueCenter.Text = ratios[ratioStates.gold];
+                    else if (result >= 1.250 && result <= 1.599)
+                        qualValueCenter.Text = ratios[ratioStates.big_reserve];
+                    else if (result >= 1 && result <= 1.249)
+                        qualValueCenter.Text = ratios[ratioStates.low_reserve];
+                    else if (result >= 0.850 && result <= 0.999)
+                        qualValueCenter.Text = ratios[ratioStates.low_defecit];
+                    else if (result >= 0.618 && result <= 0.849)
+                        qualValueCenter.Text = ratios[ratioStates.big_deficit];
+                    else if (result <= 0.617)
+                        qualValueCenter.Text = ratios[ratioStates.below_low];
+                    break;
+				case 2:
+                    if (result > 1.618)
+                        qualValueEnd.Text = ratios[ratioStates.over_gold];
+                    else if (result >= 1.600 && result <= 1.618)
+                        qualValueEnd.Text = ratios[ratioStates.gold];
+                    else if (result >= 1.250 && result <= 1.599)
+                        qualValueEnd.Text = ratios[ratioStates.big_reserve];
+                    else if (result >= 1 && result <= 1.249)
+                        qualValueEnd.Text = ratios[ratioStates.low_reserve];
+                    else if (result >= 0.850 && result <= 0.999)
+                        qualValueEnd.Text = ratios[ratioStates.low_defecit];
+                    else if (result >= 0.618 && result <= 0.849)
+                        qualValueEnd.Text = ratios[ratioStates.big_deficit];
+                    else if (result <= 0.617)
+                        qualValueEnd.Text = ratios[ratioStates.below_low];
+                    break;
 			}
 		}
+		/// <summary>
+		/// Функция для добавления текста на экран в зависимости от результата
+		/// </summary>
+		/// <param name="result">коэф, который отвечает за результат исследования</param>
+        public void TextAdd(double result)
+        {
+            if (result > 1.618)
+                qualValueStart.Text = ratios[ratioStates.over_gold];
+            else if (result >= 1.600 && result <= 1.618)
+                qualValueStart.Text = ratios[ratioStates.gold];
+            else if (result >= 1.250 && result <= 1.599)
+                qualValueStart.Text = ratios[ratioStates.big_reserve];
+            else if (result >= 1 && result <= 1.249)
+                qualValueStart.Text = ratios[ratioStates.low_reserve];
+            else if (result >= 0.850 && result <= 0.999)
+                qualValueStart.Text = ratios[ratioStates.low_defecit];
+            else if (result >= 0.618 && result <= 0.849)
+                qualValueStart.Text = ratios[ratioStates.big_deficit];
+            else if (result <= 0.617)
+                qualValueStart.Text = ratios[ratioStates.below_low];
+        }
+		#endregion TextAddFunctions
 		public void FuncSetEnable()                                     //Включить функции
 		{
 			printFile.IsEnabled = true;
@@ -229,7 +437,8 @@ namespace PsyhosomaticHealth
 			saveFile.IsEnabled = true;
 			saveFileAs.IsEnabled = true;
 		}
-		private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        #region DragNDrop
+        private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			if (e.ChangedButton == MouseButton.Left)
 			{
@@ -268,7 +477,8 @@ namespace PsyhosomaticHealth
 				Mouse.Capture(null);
 			}
 		}
-		public void openFile_Click(object sender, RoutedEventArgs e)                                                    //ОТКРЫТЬ ФАЙЛ
+        #endregion DragNDrop
+        public void openFile_Click(object sender, RoutedEventArgs e)                                                    //ОТКРЫТЬ ФАЙЛ
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog();
 			openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
@@ -284,7 +494,8 @@ namespace PsyhosomaticHealth
 				MessageBox.Show("Не смог открыть файл!", "Предупреждение");
 			}
 		}
-		public void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        #region WindowOptions
+        public void Window_PreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Escape)
 			{
@@ -308,7 +519,23 @@ namespace PsyhosomaticHealth
 		{
 			this.WindowState = WindowState.Minimized;
 		}
-		public void exportFile(object sender, RoutedEventArgs e)
+        #endregion WindowOptions
+        public static string GetExcelColumnName(int columnNumber)
+        {
+            int dividend = columnNumber;
+            string columnName = String.Empty;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo) + columnName;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+
+            return columnName;
+        }
+        public void exportFile(object sender, RoutedEventArgs e)
 		{
 			ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial; // Установка контекста лицензии
 
@@ -394,18 +621,6 @@ namespace PsyhosomaticHealth
 
 							int productivityResult = Convert.ToInt32(disciplineList.Find(p => p.title == disciplineTypeContent.Text)!.maxValue);
 
-							/*                        worksheet.Cells[1,1, 39, productivityResult + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
-													worksheet.Cells[1, 1, 39, productivityResult + 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightSlateGray);
-
-													worksheet.Cells["C4:C39"].Style.Fill.PatternType = ExcelFillStyle.Solid;
-													worksheet.Cells["C4:C39"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-
-													worksheet.Cells[3,productivityResult].Style.Fill.PatternType = ExcelFillStyle.Solid;
-													worksheet.Cells[3, productivityResult].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-
-													worksheet.Cells[4,4,39,productivityResult].Style.Fill.PatternType = ExcelFillStyle.Solid;
-													worksheet.Cells[4, 4, 39, productivityResult].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);*/
-
 							worksheet.Cells[1, 1, 39, productivityResult + 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
 							worksheet.Cells["A1:B39"].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGray);
 							worksheet.Cells[1, 1, 2, productivityResult + 3].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkGray);
@@ -487,165 +702,162 @@ namespace PsyhosomaticHealth
 		{
             excelExport.IsEnabled = true;
 			FileFunct.ReadData(out disciplineList);
-			double result = 0;
-			if (disciplineType.SelectedIndex == 0)
-			{
-				if ((Convert.ToInt32(pulseBox.Text) >= 8 && Convert.ToInt32(pulseBox.Text) <= 21 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 48 && Convert.ToInt32(pulseBox.Text) <= 126 && minSwitcher.IsChecked == true))
+			double [] result = new double[3] { 0,0,0};
+
+                if (disciplineType.SelectedIndex == 0)
 				{
-					switch (comboBox.Text)
+					if ((Convert.ToInt32(pulseTextBoxes[0].Text) >= 8 && Convert.ToInt32(pulseTextBoxes[0].Text) <= 21 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseTextBoxes[0].Text) >= 48 && Convert.ToInt32(pulseTextBoxes[0].Text) <= 12626 && minSwitcher.IsChecked == true))
 					{
-						case "Сидя":
-							if (minSwitcher.IsChecked == false)
-							{
-								result = SetResultSec(((int)HumanState.sitting));
-								break;
-							}
-							else
-							{
-								result = SetResultMin(((int)HumanState.sitting));
-								break;
-							}
-						case "Стоя":
-							if (minSwitcher.IsChecked == false)
-							{
-								result = SetResultSec(((int)HumanState.staying));
-								break;
-							}
-							else
-							{
-								result = SetResultMin(((int)HumanState.staying));
-								break;
-							}
-						case "Лежа":
-							if (minSwitcher.IsChecked == false)
-							{
-								result = SetResultSec(((int)HumanState.lying));
-								break;
-							}
-							else
-							{
-								result = SetResultMin(((int)HumanState.lying));
-								break;
-							}
-					}
-					result = Ceiling(result);
-					if (result != 0)
-					{
-						textBlock.Text = $"Колличественный показатель {Convert.ToString(result)}.";
-						ColorSet(result);
-						TextAdd(result);
+						switch (comboBox.Text)
+						{
+							case "Сидя":
+								if (minSwitcher.IsChecked == false)
+								{
+									result[0] = SetResultSec((int)HumanState.sitting);
+									break;
+								}
+								else
+								{
+                                    result[0] = SetResultMin((int)HumanState.sitting);
+									break;
+								}
+							case "Стоя":
+								if (minSwitcher.IsChecked == false)
+								{
+                                    result[0] = SetResultSec((int)HumanState.staying);
+									break;
+								}
+								else
+								{
+                                    result[0] = SetResultMin((int)HumanState.staying);
+									break;
+								}
+							case "Лежа":
+								if (minSwitcher.IsChecked == false)
+								{
+                                    result[0] = SetResultSec((int)HumanState.lying);
+									break;
+								}
+								else
+								{
+                                    result[0] = SetResultMin((int)HumanState.lying);
+									break;
+								}
+						}
+                        result[0] = Ceiling(result[0]);
+						if (result[0] != 0)
+						{
+							ColorSet(result[0]);
+							TextAdd(result[0]);
+						}
 					}
 					else
-						textBlock.Text = "Ошибка при вводе данных!";
-				}
-				else
-				{
-					MessageBox.Show("Ошибка с ЧСС!", "Неверно задана ЧСС");
-				}
-			}
-
-			else if (disciplineList.Any(temp => temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
-			{
-				if ((Convert.ToInt32(pulseBox.Text) >= 10 && Convert.ToInt32(pulseBox.Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseBox.Text) >= 60 && Convert.ToInt32(pulseBox.Text) <= 216 && minSwitcher.IsChecked == true))       //проверка границ ПУЛЬСА
-				{
-					foreach (DisciplinesTypes temp in disciplineList)
 					{
-						if (temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString())
+						MessageBox.Show("Ошибка с ЧСС!", "Неверно задана ЧСС");
+					}
+				}
+
+            for (int i = 0; i < countOfFieds; i++)
+            {
+                if (disciplineList.Any(temp => temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString()))               //Проверка на совпадения элемента в выпадающем списке  с элементом в векторе
+				{
+					if ((Convert.ToInt32(pulseTextBoxes[i].Text) >= 10 && Convert.ToInt32(pulseTextBoxes[i].Text) <= 36 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseTextBoxes[i].Text) >= 60 && Convert.ToInt32(pulseTextBoxes[i]	.Text) <= 216 && minSwitcher.IsChecked == true))       //проверка границ ПУЛЬСА
+					{
+						foreach (DisciplinesTypes temp in disciplineList)
 						{
-							if (temp.dirProp == false)                                      //прямая прогрессия
+							if (temp.title.ToString() == disciplineTypeContent.SelectedItem.ToString())
 							{
-								minValue = temp.maxValue * 100 / 161.8;         //находим минимальное значение
-								maxValue = temp.maxValue;
-								while (result == 0)
+								if (temp.dirProp == false)                                      //прямая прогрессия
 								{
-									if (Convert.ToDouble(resultBox.Text) >= minValue && counter > 0 && Convert.ToDouble(resultBox.Text) <= maxValue)        //проверка результата на минимальную границу(прямая прогрессия)
+									minValue = temp.maxValue * 100 / 161.8;         //находим минимальное значение
+									maxValue = temp.maxValue;
+									while (result[i] == 0)
 									{
-										if (minSwitcher.IsChecked == false)             //для секунд
+										if (Convert.ToDouble(resultTextBoxes[i].Text) >= minValue && counter > 0 && Convert.ToDouble(resultTextBoxes[i].Text) <= maxValue)        //проверка результата на минимальную границу(прямая прогрессия)
 										{
-											double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / maxValue;
-											double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
-											result = percentValueProduct / percentValueEnergy;
-											result = Ceiling(result);
+											if (minSwitcher.IsChecked == false)             //для секунд
+											{
+												double percentValueProduct = 161.8 * double.Parse(resultTextBoxes[i].Text) / maxValue;
+												double percentValueEnergy = double.Parse(pulseTextBoxes[i].Text) * 100 / 14;
+                                                result[i] = percentValueProduct / percentValueEnergy;
+                                                result[i] = Ceiling(result[i]);
+												break;
+											}
+											else                                                            //для минут
+											{
+												double percentValueProduct = 161.8 * double.Parse(resultTextBoxes[i].Text) / maxValue;
+												double percentValueEnergy = double.Parse(pulseTextBoxes[i].Text) * 100 / 84;
+                                                result[i] = percentValueProduct / percentValueEnergy;
+                                                result[i] = Ceiling(result[i]);
+												break;
+											}
+										}
+										else if (Convert.ToDouble(resultTextBoxes[i].Text) <= minValue && counter > 0)                                                      //переход на следующий уровень
+										{
+											counter--;      //увеличиваем счетчик на единицу(переходим на следующий уровень)
+											maxValue = minValue;       //Присваиваем максимальному значению - минимальное
+											minValue = maxValue * 100 / 161.8;             //расчитываем новое минимальное
+										}
+										else                                                                                                                                                                            //обработка, если мы вышли за нормы показателя
+										{
+											MessageBox.Show("Ошибка с колличественным показателем", "Ошибка при вычислении колличественного показателя!");
 											break;
 										}
-										else                                                            //для минут
-										{
-											double percentValueProduct = 161.8 * double.Parse(resultBox.Text) / maxValue;
-											double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
-											result = percentValueProduct / percentValueEnergy;
-											result = Ceiling(result);
-											break;
-										}
-									}
-									else if (Convert.ToDouble(resultBox.Text) <= minValue && counter > 0)                                                      //переход на следующий уровень
-									{
-										counter--;      //увеличиваем счетчик на единицу(переходим на следующий уровень)
-										maxValue = minValue;       //Присваиваем максимальному значению - минимальное
-										minValue = maxValue * 100 / 161.8;             //расчитываем новое минимальное
-									}
-									else                                                                                                                                                                            //обработка, если мы вышли за нормы показателя
-									{
-										MessageBox.Show("Ошибка с колличественным показателем", "Ошибка при вычислении колличественного показателя!");
-										break;
 									}
 								}
-							}
-							else                                                    //обратная прогрессия  ДОПИСАТЬ!! ХОД МЫСЛЕЙ ТОТ ЖЕ!!!
-							{
-								resultBox.Text = resultBox.Text.Replace(".", ",");
-								minValue = temp.maxValue * 161.8 / 100;
-								maxValue = temp.maxValue;
-								while (result == 0)
+								else                                                    //обратная прогрессия  ДОПИСАТЬ!! ХОД МЫСЛЕЙ ТОТ ЖЕ!!!
 								{
-									if (Convert.ToDouble(resultBox.Text) <= minValue && counter > 0 && Convert.ToDouble(resultBox.Text) >= maxValue)            //проверка результата на минимальную границу(обратная прогрессия)
+									resultTextBoxes[i].Text = resultTextBoxes[i].Text.Replace(".", ",");
+									minValue = temp.maxValue * 161.8 / 100;
+									maxValue = temp.maxValue;
+									while (result[i] == 0)
 									{
-										if (minSwitcher.IsChecked == false)
+										if (Convert.ToDouble(resultTextBoxes[i].Text) <= minValue && counter > 0 && Convert.ToDouble(resultTextBoxes[i].Text) >= maxValue)            //проверка результата на минимальную границу(обратная прогрессия)
 										{
-											double percentValueProduct = 161.8 * maxValue / double.Parse(resultBox.Text);
-											double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 14;
-											result = percentValueProduct / percentValueEnergy;
-											result = Ceiling(result);
-											break;
+											if (minSwitcher.IsChecked == false)
+											{
+												double percentValueProduct = 161.8 * maxValue / double.Parse(resultTextBoxes[i].Text);
+												double percentValueEnergy = double.Parse(pulseTextBoxes[i].Text) * 100 / 14;
+                                                result[i] = percentValueProduct / percentValueEnergy;
+                                                result[i] = Ceiling(result[i]);
+												break;
+											}
+											else
+											{
+												double percentValueProduct = 161.8 * maxValue / double.Parse(resultTextBoxes[i].Text);
+												double percentValueEnergy = double.Parse(pulseTextBoxes[i].Text) * 100 / 84;
+                                                result[i] = percentValueProduct / percentValueEnergy;
+                                                result[i] = Ceiling(result[i]);
+												break;
+											}
+										}
+										else if (Convert.ToDouble(resultTextBoxes[i].Text) >= minValue && counter > 0)               //переход на следующий уровень
+										{
+											counter--;      //увеличиваем счетчик на единицу(переходим на следующий уровень)
+											maxValue = minValue;       //Присваиваем максимальному значению - минимальное
+											minValue = maxValue * 161.8 / 100;             //расчитываем новое минимальное
 										}
 										else
 										{
-											double percentValueProduct = 161.8 * maxValue / double.Parse(resultBox.Text);
-											double percentValueEnergy = double.Parse(pulseBox.Text) * 100 / 84;
-											result = percentValueProduct / percentValueEnergy;
-											result = Ceiling(result);
+											MessageBox.Show("Ошибка с колличественным показателем", "Ошибка при вычислении колличественного показателя!");
 											break;
 										}
-									}
-									else if (Convert.ToDouble(resultBox.Text) >= minValue && counter > 0)               //переход на следующий уровень
-									{
-										counter--;      //увеличиваем счетчик на единицу(переходим на следующий уровень)
-										maxValue = minValue;       //Присваиваем максимальному значению - минимальное
-										minValue = maxValue * 161.8 / 100;             //расчитываем новое минимальное
-									}
-									else
-									{
-										MessageBox.Show("Ошибка с колличественным показателем", "Ошибка при вычислении колличественного показателя!");
-										break;
 									}
 								}
 							}
 						}
 					}
-				}
-				else
-				{
-					MessageBox.Show("Ошибка с ЧСС!", "Неверно задана ЧСС");
-				}
-				if (result != 0)
-				{
-					/*                    colorBlock.Visibility = Visibility.Visible;
-										textBlock.Text = $"Колличественный показатель: {Convert.ToString(result)}. ";*/
-					quanValueStart.Text = Convert.ToString(result);
-					ColorSet(result);
-					TextAdd(result);
-					ratioTable.Visibility = Visibility.Visible;
-					/*                    sportBlock.Text = $"Ваш уровень продуктивности: C{counter}";
-										counter = 3;                                //Возвращаем счетчик*/
+					else
+					{
+						MessageBox.Show("Ошибка с ЧСС!", "Неверно задана ЧСС");
+					}
+					if (result[i] != 0)
+					{
+						quanValueStart.Text = Convert.ToString(result);
+						ColorSet(result[i], i);
+						TextAdd(result[i], i);
+						ratioTable.Visibility = Visibility.Visible;
+					}
 				}
 			}
 		}
@@ -656,32 +868,45 @@ namespace PsyhosomaticHealth
 		}
 		public void SelectionFunction(object sender, SelectionChangedEventArgs e)                     //обработка события, когда мы выводим курсор из выпадающего списка
 		{
+			for(int i = 0; i < countOfFieds; i++)
+			{
+                resultGroupBoxes[i] = new GroupBox();
+                pulseGroupBoxes[i] = new GroupBox();
+                pulseTextBoxes[i] = new TextBox();
+                resultTextBoxes[i] = new TextBox();
+            }
 			ClearAll();
 
 			setDisciplineContent.Visibility = Visibility.Visible;       //показывает второй комбобокс
 			minSwitcher.Visibility = Visibility.Visible;
-			resultHead = new GroupBox();                //GroupBox для выбора результатов
-			resultHead.Name = "typeHead";
-			resultHead.HorizontalAlignment = HorizontalAlignment.Left;
-			resultHead.Width = 250;
-			resultHead.FontSize = 13;
-			resultHead.ToolTip = "Введите результат";
-			resultHead.Margin = new Thickness(0, 0, 0, 10);
 
-			pulseHead = new GroupBox();     //GroupBox для измерения пульса
-			pulseHead.Name = "pulseHead";
-			pulseHead.Header = "ЧСС";
-			pulseHead.HorizontalAlignment = HorizontalAlignment.Left;
-			pulseHead.Width = 250;
-			pulseHead.FontSize = 13;
-			pulseHead.ToolTip = "Измерьте пульc за 10 сек";
+            for (int i = 0; i < countOfFieds; i++)
+            {
+                resultGroupBoxes[i].Name = $"typeHead{i}";
+                resultGroupBoxes[i].HorizontalAlignment = HorizontalAlignment.Left;
+                resultGroupBoxes[i].Width = 250;
+                resultGroupBoxes[i].FontSize = 13;
+                resultGroupBoxes[i].ToolTip = "Введите результат";
+                resultGroupBoxes[i].Margin = new Thickness(0, 0, 0, 10);
+            }
 
-			ComboBox comboBox = new ComboBox();
+            for (int i = 0; i < countOfFieds; i++)
+			{
+                pulseGroupBoxes[i].Name = $"typeHead{i}";
+                pulseGroupBoxes[i].HorizontalAlignment = HorizontalAlignment.Left;
+                pulseGroupBoxes[i].Width = 250;
+                pulseGroupBoxes[i].FontSize = 13;
+                pulseGroupBoxes[i].ToolTip = "Введите результат";
+                pulseGroupBoxes[i].Margin = new Thickness(0, 0, 0, 10);
+            }
 
-			//TextBox pulseBox = new TextBox();
-			pulseBox.Name = "pulseBox";
-			pulseBox.Width = 240;
-			pulseBox.Height = 30;
+			//TextBox pulseTextBox = new TextBox();
+			for(int i = 0; i < countOfFieds; i++)
+			{
+				pulseTextBoxes[i].Name = $"pulseTextBox{i}";
+				pulseTextBoxes[i].Width = 240;
+				pulseTextBoxes[i].Height = 30;
+            }
 
 			switch (disciplineType.SelectedIndex)
 			{
@@ -689,121 +914,177 @@ namespace PsyhosomaticHealth
 					{
 						setDisciplineContent.Visibility = Visibility.Hidden;        //скрывает второй комбобокс
 						minSwitcher.Visibility = Visibility.Visible;
-						resultHead.Header = "Исходное положение";
 
-						//ComboBox comboBox = new ComboBox();
-						comboBox.Name = "comboBox";
+
+                        ComboBox comboBox = new ComboBox();
+
+                        //ComboBox comboBox = new ComboBox();
+                        comboBox.Name = "comboBox";
 						comboBox.Items.Add("Сидя");
 						comboBox.Items.Add("Стоя");
 						comboBox.Items.Add("Лежа");
 						comboBox.Width = 240;
 						comboBox.Height = 30;
-						resultHead.Content = comboBox;
 
-						pulseHead.Content = pulseBox;
+						resultGroupBoxes[0].Header = "Исходное положение";
+						resultGroupBoxes[0].Content = comboBox;
+						pulseGroupBoxes[0].Content = pulseTextBoxes[0];
 
-						stackPanel.Children.Add(resultHead);
-						stackPanel.Children.Add(pulseHead);
+						stackPanel.Children.Add(resultGroupBoxes[0]);
+						stackPanel.Children.Add(pulseGroupBoxes[0]);
+
+						stackPanelScroll.Visibility = Visibility.Visible;
 						break;
 					}
 				case 1:
 					{
 						addFunction(1);
-						resultHead.Header = "Продуктивность";
+						for(int i = 0; i < countOfFieds; i++)
+						{
+							resultGroupBoxes[i].Header = "Продуктивность";
 
-						// Создание TextBox в первом GroupBox
-						resultBox.Name = "resultBox";
-						resultBox.Width = 240;
-						resultBox.Height = 30;
-						resultHead.Content = resultBox;
+							// Создание TextBox в первом GroupBox
+							resultTextBoxes[i].Name = $"resultTextBox{i}";
+							resultTextBoxes[i].Width = 240;
+							resultTextBoxes[i].Height = 30;
+							resultGroupBoxes[i].Content = resultTextBoxes[i];
 
-						pulseHead.Content = pulseBox;
+							pulseGroupBoxes[i].Content = pulseTextBoxes[i];
 
-						// Добавление обоих GroupBox в StackPanel
-						stackPanel.Children.Add(resultHead);
-						stackPanel.Children.Add(pulseHead);
-						break;
+							// Добавление обоих GroupBox в StackPanel
+							stackPanel.Children.Add(resultGroupBoxes[i]);
+							stackPanel.Children.Add(pulseGroupBoxes[i]);
+                        }
+                        stackPanelScroll.Visibility = Visibility.Visible;
+                        break;
 					}
 				case 2:
 					{
 						addFunction(2);
-						resultHead.Header = "Продуктивность";
+                        for (int i = 0; i < countOfFieds; i++)
+                        {
+                            resultGroupBoxes[i].Header = "Продуктивность";
 
-						resultBox.Name = "resultBox";
-						resultBox.Width = 240;
-						resultBox.Height = 30;
-						resultHead.Content = resultBox;
+                            // Создание TextBox в первом GroupBox
+                            resultTextBoxes[i].Name = $"resultTextBox{i}";
+                            resultTextBoxes[i].Width = 240;
+                            resultTextBoxes[i].Height = 30;
+                            resultGroupBoxes[i].Content = resultTextBoxes[i];
 
-						pulseHead.Content = pulseBox;
+                            pulseGroupBoxes[i].Content = pulseTextBoxes[i];
 
-						// Добавление обоих GroupBox в StackPanel
-						stackPanel.Children.Add(resultHead);
-						stackPanel.Children.Add(pulseHead);
-						break;
+                            // Добавление обоих GroupBox в StackPanel
+                            stackPanel.Children.Add(resultGroupBoxes[i]);
+                            stackPanel.Children.Add(pulseGroupBoxes[i]);
+                        }
+                        stackPanelScroll.Visibility = Visibility.Visible;
+                        break;
 					}
 				case 3:
 					{
 						addFunction(3);
-						resultHead.Header = "Продуктивность";
+                        for (int i = 0; i < countOfFieds; i++)
+                        {
+                            resultGroupBoxes[i].Header = "Продуктивность";
 
-						resultBox.Name = "resultBox";
-						resultBox.Width = 240;
-						resultBox.Height = 30;
-						resultHead.Content = resultBox;
+                            // Создание TextBox в первом GroupBox
+                            resultTextBoxes[i].Name = $"resultTextBox{i}";
+                            resultTextBoxes[i].Width = 240;
+                            resultTextBoxes[i].Height = 30;
+                            resultGroupBoxes[i].Content = resultTextBoxes[i];
 
-						pulseHead.Content = pulseBox;
+                            pulseGroupBoxes[i].Content = pulseTextBoxes[i];
 
-						// Добавление обоих GroupBox в StackPanel
-						stackPanel.Children.Add(resultHead);
-						stackPanel.Children.Add(pulseHead);
-						break;
+                            // Добавление обоих GroupBox в StackPanel
+                            stackPanel.Children.Add(resultGroupBoxes[i]);
+                            stackPanel.Children.Add(pulseGroupBoxes[i]);
+                        }
+                        stackPanelScroll.Visibility = Visibility.Visible;
+                        break;
 					}
 				case 4:
 					{
 						addFunction(4);
-						resultHead.Header = "Продуктивность";
+                        for (int i = 0; i < countOfFieds; i++)
+                        {
+                            resultGroupBoxes[i].Header = "Продуктивность";
 
-						resultBox.Name = "resultBox";
-						resultBox.Width = 240;
-						resultBox.Height = 30;
+                            // Создание TextBox в первом GroupBox
+                            resultTextBoxes[i].Name = $"resultTextBox{i}";
+                            resultTextBoxes[i].Width = 240;
+                            resultTextBoxes[i].Height = 30;
+                            resultGroupBoxes[i].Content = resultTextBoxes[i];
 
-						pulseHead.Content = pulseBox;
+                            pulseGroupBoxes[i].Content = pulseTextBoxes[i];
 
-						// Добавление обоих GroupBox в StackPanel
-						stackPanel.Children.Add(resultHead);
-						stackPanel.Children.Add(pulseHead);
-						break;
+                            // Добавление обоих GroupBox в StackPanel
+                            stackPanel.Children.Add(resultGroupBoxes[i]);
+                            stackPanel.Children.Add(pulseGroupBoxes[i]);
+                        }
+                        stackPanelScroll.Visibility = Visibility.Visible;
+                        break;
 					}
 			}
 		}
-		public double SetResultSec(int coef = 1)                                                    //ФУНКЦИЯ ВЫЧИСЛЕНИЯ В СЕКУНДАХ
+        #region SetResultDimension
+        /// <summary>
+        /// Возвращает результат вычисления результата в секундах
+        /// </summary>
+        /// <param name="coef">Коэф</param>
+        /// <returns>результат вычисления результата в секундах</returns>
+        public double SetResultSec(int coef = 1)                                                    //ФУНКЦИЯ ВЫЧИСЛЕНИЯ В СЕКУНДАХ
 		{
-			if (double.TryParse(pulseBox.Text, out double temp))
+			if (double.TryParse(pulseTextBoxes[0].Text, out double temp))
 				return coef / (100 * temp / 12);
 			else
 				return 0;
 		}
-		public double SetResultMin(int coef = 1)                                            //ФУНКЦИЯ ВЫЧИСЛЕНИИ В СЕКУНДАХ
+        /// <summary>
+        /// Метод для вычисления результата в секундах, работающий для списков
+        /// </summary>
+        /// <param name="numberOfField">Порядковый номер записи</param>
+        /// <param name="coef">Процентное соотношение соотвествующему результату</param>
+        /// <returns>Результат в секундах</returns>
+        public double SetResultSec(int numberOfField, int coef = 1)                                                    //ФУНКЦИЯ ВЫЧИСЛЕНИЯ В СЕКУНДАХ
+        {
+            if (double.TryParse(pulseTextBoxes[numberOfField].Text, out double temp))
+                return coef / (100 * temp / 12);
+            else
+                return 0;
+        }
+        /// <summary>
+        /// Метод для расчета минут единичных записей(сидя, стоя, лежа)
+        /// </summary>
+        /// <param name="coef">Процентное соотношение соотвествующему результату</param>
+        /// <returns>Возвращает результат в секундах</returns>
+        public double SetResultMin(int coef = 1)                                            //ФУНКЦИЯ ВЫЧИСЛЕНИИ В СЕКУНДАХ
 		{
-			if (double.TryParse(pulseBox.Text, out double temp))
+			if (double.TryParse(pulseTextBoxes[0].Text, out double temp))
 				return coef / (100 * temp / 72);
 			else
 				return 0;
 		}
-		public void ClearAll()                                                          //ОЧИСТИТЬ ВСЕ ПОЛЯ
+        public double SetResultMin(int numberOfField, int coef = 1)                                            //ФУНКЦИЯ ВЫЧИСЛЕНИИ В СЕКУНДАХ
+        {
+            if (double.TryParse(pulseTextBoxes[numberOfField].Text, out double temp))
+                return coef / (100 * temp / 72);
+            else
+                return 0;
+        }
+        #endregion SetResultDimension
+        /// <summary>
+        /// Очистить все поля
+        /// </summary>
+        public void ClearAll()
 		{
 			disciplineTypeContent.Items.Clear();
-			pulseBox.Text = string.Empty;
-			resultBox.Text = string.Empty;
-			textBlock.Text = string.Empty;
+			for(int i = 0; i < countOfFieds; i++)
+			{
+				pulseTextBoxes[i].Text = string.Empty;
+				resultTextBoxes[i].Text = string.Empty;
+            }
 			comboBox.Items.Clear();
 			stackPanel.Children.Clear();
-		}
-		enum HumanState                                 //ПЕРЕЧИСЛЕНИЕ СОСТОЯНИЙ
-		{
-			lying = 100,
-			sitting = 103,
-			staying = 106
 		}
 		public double Ceiling(double result)
 		{

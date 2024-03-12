@@ -84,7 +84,7 @@
                 <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
                 <TextBlock x:Name="qualValueStart" Foreground="Red" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE DEFICIT</TextBlock>
                 <TextBlock x:Name="valueRecomendationStart" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
-                        <TextBlock FontSize="12" FontWeight="Bold" Foreground="Red" FontStyle="Oblique" FontFamily="Arial">Large deficit of organismal health (0.853 - 0.618)</TextBlock> - average entropic energy cost of performed psyhomotor activity in the scale of golden proportion
+                        <TextBlock x:Name="resultRecomendationHeaderStart" FontSize="12" FontWeight="Bold" Foreground="Red" FontStyle="Oblique" FontFamily="Arial">Large deficit of organismal health (0.853 - 0.618)</TextBlock> - average entropic energy cost of performed psyhomotor activity in the scale of golden proportion
                     </TextBlock>
                 <Button x:Name="buttonStart" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
             </Grid>
@@ -100,15 +100,15 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Foreground="Green" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">PSYHOMOTOR EXERCISES</TextBlock>
+                <TextBlock x:Name="centerTraining" Foreground="Green" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">PSYHOMOTOR EXERCISES</TextBlock>
                 <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
-                <TextBlock Foreground="Green" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,201</TextBlock>
+                <TextBlock x:Name="quanValueCenter" Foreground="Green" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,201</TextBlock>
                 <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
-                <TextBlock Foreground="Green" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">Small</TextBlock>
-                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
-                        <TextBlock FontSize="12" FontWeight="Bold" Foreground="Green" FontStyle="Oblique" FontFamily="Arial">Small reserve of organism sanitaion (1.000 - 1.236)</TextBlock> - moderate non-entropic energy cost of performed psyhomotor activity in the scale of golden proportion.
+                <TextBlock x:Name="qualValueCenter" Foreground="Green" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">Small</TextBlock>
+                <TextBlock x:Name="valueRecomendationCenter" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
+                        <TextBlock x:Name="resultRecomendationHeaderCenter" FontSize="12" FontWeight="Bold" Foreground="Green" FontStyle="Oblique" FontFamily="Arial">Small reserve of organism sanitaion (1.000 - 1.236)</TextBlock> - moderate non-entropic energy cost of performed psyhomotor activity in the scale of golden proportion.
                     </TextBlock>
-                <Button Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+                <Button x:Name="buttonCenter" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
@@ -122,24 +122,25 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Foreground="DarkGreen" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">ENDING</TextBlock>
+                <TextBlock x:Name="endTraining" Foreground="DarkGreen" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">ENDING</TextBlock>
                 <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
-                <TextBlock Foreground="DarkGreen" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,334</TextBlock>
+                <TextBlock x:Name="quanValueEnd" Foreground="DarkGreen" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,334</TextBlock>
                 <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
-                <TextBlock Foreground="DarkGreen" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE RESERVE</TextBlock>
-                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
-                        <TextBlock FontSize="12" FontWeight="Bold" Foreground="DarkGreen" FontStyle="Oblique" FontFamily="Arial">Large reserve of organism's health (1.237 - 1.599)</TextBlock> - stable high non-entropic energy cost of performed psyhomotor activity in the scale of golden ratio.
-                    </TextBlock>
-                <Button Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+                <TextBlock x:Name="qualValueEnd" Foreground="DarkGreen" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE RESERVE</TextBlock>
+                <TextBlock x:Name="valueRecomendationEnd" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
+                        <TextBlock x:Name="resultRecomendationHeaderEnd" FontSize="12" FontWeight="Bold" Foreground="DarkGreen" FontStyle="Oblique" FontFamily="Arial">Large reserve of organism's health (1.237 - 1.599)</TextBlock> - stable high non-entropic energy cost of performed psyhomotor activity in the scale of golden ratio.
+                </TextBlock>
+                <Button x:Name="buttonEnd" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
             </Grid>
-            <TextBlock x:Name="textBlock" FontSize="15" TextWrapping="Wrap" Grid.ColumnSpan="2" Visibility="Hidden"/>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="stackPanel" VerticalAlignment="Bottom" Height="200px" Width="255px" HorizontalAlignment="Left" Grid.Row="0" />
+            <ScrollViewer x:Name="stackPanelScroll" Visibility="Hidden" Grid.Row="0">
+                <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Grid.Row="0" />
+            </ScrollViewer>
             <CheckBox x:Name="minSwitcher" Width="100" Content="Минуты" Visibility="Hidden" FontSize="13" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1"/>
         </Grid>
         <Button x:Name="getResult" Width="255px" Height="50" Content="Расчитать" Background="#549438" FontSize="13" Click="buttonClick" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsDefault="True" Grid.Column="0" Grid.Row="5"/>
