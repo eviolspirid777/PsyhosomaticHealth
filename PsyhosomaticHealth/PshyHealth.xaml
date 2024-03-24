@@ -31,7 +31,7 @@
                 <Button Width="20px" FontSize="14" Background="#549438" BorderThickness="0" Click="hideWindow">_</Button>
             </StackPanel>
         </Grid>
-        <Menu Grid.Row="1" Grid.ColumnSpan="2" >
+        <Menu Grid.Row="1" Grid.ColumnSpan="2" Background="#FFF0F0F0" >
             <MenuItem Header="Файл">
                 <MenuItem x:Name="newFile" Header="Новый" Click="newFile_Click"/>
                 <Separator />
@@ -86,7 +86,7 @@
                 <TextBlock x:Name="valueRecomendationStart" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
                         <TextBlock x:Name="resultRecomendationHeaderStart" FontSize="12" FontWeight="Bold" Foreground="Red" FontStyle="Oblique" FontFamily="Arial">Large deficit of organismal health (0.853 - 0.618)</TextBlock> - average entropic energy cost of performed psyhomotor activity in the scale of golden proportion
                     </TextBlock>
-                <Button x:Name="buttonStart" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+                <Button x:Name="buttonStart" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="openDiagramInformation">Subject</Button>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
@@ -108,7 +108,7 @@
                 <TextBlock x:Name="valueRecomendationCenter" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
                         <TextBlock x:Name="resultRecomendationHeaderCenter" FontSize="12" FontWeight="Bold" Foreground="Green" FontStyle="Oblique" FontFamily="Arial">Small reserve of organism sanitaion (1.000 - 1.236)</TextBlock> - moderate non-entropic energy cost of performed psyhomotor activity in the scale of golden proportion.
                     </TextBlock>
-                <Button x:Name="buttonCenter" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+                <Button x:Name="buttonCenter" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="openDiagramInformation">Subject</Button>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
@@ -130,7 +130,7 @@
                 <TextBlock x:Name="valueRecomendationEnd" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
                         <TextBlock x:Name="resultRecomendationHeaderEnd" FontSize="12" FontWeight="Bold" Foreground="DarkGreen" FontStyle="Oblique" FontFamily="Arial">Large reserve of organism's health (1.237 - 1.599)</TextBlock> - stable high non-entropic energy cost of performed psyhomotor activity in the scale of golden ratio.
                 </TextBlock>
-                <Button x:Name="buttonEnd" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0">Subject</Button>
+                <Button x:Name="buttonEnd" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="openDiagramInformation">Subject</Button>
             </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="4">

@@ -10,6 +10,9 @@
     <Compile Update="addDiscipline.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="DiagramWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="HelpWIndow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +22,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="addDiscipline.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="DiagramWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="HelpWIndow.xaml">

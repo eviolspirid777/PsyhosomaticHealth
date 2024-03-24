@@ -99,8 +99,8 @@ namespace PsyhosomaticHealth
 
         #region resultPulseBoxes
         const int countOfFieds = 3;
-		ComboBox comboBox = new ComboBox();
 		/*GroupBox resultGroupBox = new GroupBox();*/
+		ComboBox comboBox = new ComboBox();
 		GroupBox [] resultGroupBoxes = new GroupBox[countOfFieds];
 		GroupBox [] pulseGroupBoxes = new GroupBox[countOfFieds];
 		TextBox [] pulseTextBoxes = new TextBox[countOfFieds];
@@ -494,8 +494,14 @@ namespace PsyhosomaticHealth
 				MessageBox.Show("Не смог открыть файл!", "Предупреждение");
 			}
 		}
-        #region WindowOptions
-        public void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+
+		public void openDiagramInformation(object sender, RoutedEventArgs e)
+		{
+			DiagramWindow diagramWindow = new DiagramWindow();
+			diagramWindow.Show();
+		}
+		#region WindowOptions
+		public void Window_PreviewKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Escape)
 			{
@@ -708,7 +714,7 @@ namespace PsyhosomaticHealth
 				{
 					if ((Convert.ToInt32(pulseTextBoxes[0].Text) >= 8 && Convert.ToInt32(pulseTextBoxes[0].Text) <= 21 && minSwitcher.IsChecked == false) || (Convert.ToInt32(pulseTextBoxes[0].Text) >= 48 && Convert.ToInt32(pulseTextBoxes[0].Text) <= 12626 && minSwitcher.IsChecked == true))
 					{
-						switch (comboBox.Text)
+						switch ((string)comboBox.SelectedItem)
 						{
 							case "Сидя":
 								if (minSwitcher.IsChecked == false)
@@ -749,6 +755,7 @@ namespace PsyhosomaticHealth
 						{
 							ColorSet(result[0]);
 							TextAdd(result[0]);
+							return;
 						}
 					}
 					else
@@ -915,10 +922,6 @@ namespace PsyhosomaticHealth
 						setDisciplineContent.Visibility = Visibility.Hidden;        //скрывает второй комбобокс
 						minSwitcher.Visibility = Visibility.Visible;
 
-
-                        ComboBox comboBox = new ComboBox();
-
-                        //ComboBox comboBox = new ComboBox();
                         comboBox.Name = "comboBox";
 						comboBox.Items.Add("Сидя");
 						comboBox.Items.Add("Стоя");

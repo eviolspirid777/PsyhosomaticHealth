@@ -12,11 +12,10 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\misyrin\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\misyrin\\.nuget\\packages"
+      "C:\\Users\\eviol\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\eviol\\.nuget\\packages"
     ],
     "configProperties": {
-      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
     }
   }
