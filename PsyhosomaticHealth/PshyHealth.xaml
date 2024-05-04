@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PsyhosomaticHealth"
         mc:Ignorable="d"
-        Title="Расчет" Height="470" Width="825"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico" WindowStyle="None" PreviewKeyDown="Window_PreviewKeyDown">
+        Title="Расчет" Height="670" Width="1240"  Icon="/vitruvianskij_chelovek_igevgex3djjh.ico" WindowStyle="None" PreviewKeyDown="Window_PreviewKeyDown">
     <Grid x:Name="QWe">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition x:Name="headerMenu" Height="20px"></RowDefinition>
@@ -56,81 +56,124 @@
         <GroupBox x:Name="setDisciplineContent" Header="Вид Спорта" FontSize="13"  FontStyle="Italic" Visibility="Hidden" HorizontalAlignment="Left" Height="50px" Width="250px" Grid.Column="0" Grid.Row="3">
             <ComboBox  x:Name="disciplineTypeContent" ToolTip="Выберите вид спорта" Height="27" />
         </GroupBox>
-        <Grid x:Name="ratioTable" Grid.Column="1" Grid.Row="2" Grid.RowSpan="4" Margin="5" Visibility="Hidden">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+        <Grid x:Name="ratioTable" Grid.Column="1" Visibility="Hidden" Grid.Row="2" Grid.RowSpan="6">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="12*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <ScrollViewer  Grid.Row="0" Grid.RowSpan="1">
+                <Grid x:Name="resultTable" Margin="0,0,3,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="firstNode" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="startTraining" Foreground="Red" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">Начало</TextBlock>
+                        <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Количественный показатель</TextBlock>
+                        <TextBlock x:Name="quanValueStart" Foreground="Red" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">0,781</TextBlock>
+                        <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Качественная характеристика</TextBlock>
+                        <TextBlock x:Name="qualValueStart" Foreground="Red" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE DEFICIT</TextBlock>
+                        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"></ColumnDefinition>
+                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="resultRecomendationHeaderStart" Grid.Row="3" Grid.Column="0" FontSize="12"  FontWeight="Bold" Foreground="Red" FontStyle="Oblique" FontFamily="Arial">Large deficit of organismal health (0.853 - 0.618)</TextBlock>
+                            <TextBlock x:Name="valueRecomendationStart" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial"> - average entropic energy cost of performed psyhomotor activity in the scale of golden proportion</TextBlock>
+                        </Grid>
+                        <Button x:Name="buttonStart" Grid.Column="1" Grid.Row="4" Width="80px" Height="30px" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="subjectStart">Больше</Button>
+                        <TextBlock x:Name="fullInformationStart" Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap"></TextBlock>
+                    </Grid>
+                    <Grid x:Name="secondNode" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="centerTraining" Foreground="Green" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">Психомотрные упражнения</TextBlock>
+                        <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Количественный показатель</TextBlock>
+                        <TextBlock x:Name="quanValueCenter" Foreground="Green" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,201</TextBlock>
+                        <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Качественный характеристика</TextBlock>
+                        <TextBlock x:Name="qualValueCenter" Foreground="Green" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">Small</TextBlock>
+                        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"></ColumnDefinition>
+                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="resultRecomendationHeaderCenter" FontSize="12" Grid.Column="0" FontWeight="Bold" Foreground="Green" FontStyle="Oblique" FontFamily="Arial">Small reserve of organism sanitaion (1.000 - 1.236)</TextBlock>
+                            <TextBlock x:Name="valueRecomendationCenter" TextWrapping="Wrap" Grid.Column="1" FontWeight="Regular" FontFamily="Arial"> -  moderate non-entropic energy cost of performed psyhomotor activity in the scale of golden proportion.</TextBlock>
+                        </Grid>
+                        <Button x:Name="buttonCenter" Grid.Column="1" Grid.Row="4" Width="80px" Height="30px" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="subjectCenter">Больше</Button>
+                        <TextBlock x:Name="fullInformationCenter" Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap"></TextBlock>
+                    </Grid>
+                    <Grid x:Name="thirdNode" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="endTraining" Foreground="DarkGreen" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">ОКОНЧАНИЕ</TextBlock>
+                        <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Количественный показатель</TextBlock>
+                        <TextBlock x:Name="quanValueEnd" Foreground="DarkGreen" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,334</TextBlock>
+                        <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Качественная характеристика</TextBlock>
+                        <TextBlock x:Name="qualValueEnd" Foreground="DarkGreen" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE RESERVE</TextBlock>
+                        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*"></ColumnDefinition>
+                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="resultRecomendationHeaderEnd" Grid.Column="0" FontSize="12" FontWeight="Bold" Foreground="DarkGreen" FontStyle="Oblique" FontFamily="Arial">Large reserve of organism's health (1.237 - 1.599)</TextBlock>
+                            <TextBlock x:Name="valueRecomendationEnd" Grid.Column="1" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial"> - stable high non-entropic energy cost of performed psyhomotor activity in the scale of golden ratio.</TextBlock>
+                        </Grid>
+                        <Button x:Name="buttonEnd" Grid.Column="1" Grid.Row="4" Width="80px" Height="30px" HorizontalAlignment="Right" VerticalAlignment="Top" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="subjectEnd">Больше</Button>
+                        <TextBlock x:Name="fullInformationEnd" Grid.ColumnSpan="2" Grid.Row="5" TextWrapping="Wrap"></TextBlock>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="startTraining" Foreground="Red" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">BEGINNING</TextBlock>
-                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
-                <TextBlock x:Name="quanValueStart" Foreground="Red" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">0,781</TextBlock>
-                <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
-                <TextBlock x:Name="qualValueStart" Foreground="Red" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE DEFICIT</TextBlock>
-                <TextBlock x:Name="valueRecomendationStart" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
-                        <TextBlock x:Name="resultRecomendationHeaderStart" FontSize="12" FontWeight="Bold" Foreground="Red" FontStyle="Oblique" FontFamily="Arial">Large deficit of organismal health (0.853 - 0.618)</TextBlock> - average entropic energy cost of performed psyhomotor activity in the scale of golden proportion
-                    </TextBlock>
-                <Button x:Name="buttonStart" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Red" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="openDiagramInformation">Subject</Button>
-            </Grid>
-            <Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="centerTraining" Foreground="Green" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">PSYHOMOTOR EXERCISES</TextBlock>
-                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
-                <TextBlock x:Name="quanValueCenter" Foreground="Green" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,201</TextBlock>
-                <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
-                <TextBlock x:Name="qualValueCenter" Foreground="Green" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">Small</TextBlock>
-                <TextBlock x:Name="valueRecomendationCenter" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
-                        <TextBlock x:Name="resultRecomendationHeaderCenter" FontSize="12" FontWeight="Bold" Foreground="Green" FontStyle="Oblique" FontFamily="Arial">Small reserve of organism sanitaion (1.000 - 1.236)</TextBlock> - moderate non-entropic energy cost of performed psyhomotor activity in the scale of golden proportion.
-                    </TextBlock>
-                <Button x:Name="buttonCenter" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Green" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="openDiagramInformation">Subject</Button>
-            </Grid>
-            <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock x:Name="endTraining" Foreground="DarkGreen" FontWeight="Bold" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" FontSize="13" FontFamily="Arial">ENDING</TextBlock>
-                <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="0" FontSize="12" FontFamily="Arial">Quantative characterisation</TextBlock>
-                <TextBlock x:Name="quanValueEnd" Foreground="DarkGreen" Grid.Row="1" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">1,334</TextBlock>
-                <TextBlock FontWeight="Bold" Grid.Row="2" Grid.Column="0" FontSize="12" FontFamily="Arial">Qualitative characterisation</TextBlock>
-                <TextBlock x:Name="qualValueEnd" Foreground="DarkGreen" Grid.Row="2" Grid.Column="2" FlowDirection="RightToLeft" FontWeight="Bold" FontSize="13" FontFamily="Arial">LARGE RESERVE</TextBlock>
-                <TextBlock x:Name="valueRecomendationEnd" Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap" FontWeight="Regular" FontFamily="Arial">
-                        <TextBlock x:Name="resultRecomendationHeaderEnd" FontSize="12" FontWeight="Bold" Foreground="DarkGreen" FontStyle="Oblique" FontFamily="Arial">Large reserve of organism's health (1.237 - 1.599)</TextBlock> - stable high non-entropic energy cost of performed psyhomotor activity in the scale of golden ratio.
-                </TextBlock>
-                <Button x:Name="buttonEnd" Grid.Column="1" Grid.Row="4" Width="100px" Height="20px" HorizontalAlignment="Right" VerticalAlignment="Center" Background="DarkGreen" Foreground="White" FontFamily="Arial" FontWeight="Bold" BorderThickness="0" Click="openDiagramInformation">Subject</Button>
+                <TextBlock Grid.Row="0" Grid.Column="0">Продуктивность</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0">Энергостоимость</TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1">Психомотрная деятельность</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1">Адаптационная реакция</TextBlock>
             </Grid>
         </Grid>
         <Grid Grid.Column="0" Grid.Row="4">
@@ -141,7 +184,7 @@
             <ScrollViewer x:Name="stackPanelScroll" Visibility="Hidden" Grid.Row="0">
                 <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Grid.Row="0" />
             </ScrollViewer>
-            <CheckBox x:Name="minSwitcher" Width="100" Content="Минуты" Visibility="Hidden" FontSize="13" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1"/>
+            <CheckBox x:Name="minSwitcher" Width="100" Content="Минуты" Visibility="Hidden" FontSize="13" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1"/>
         </Grid>
         <Button x:Name="getResult" Width="255px" Height="50" Content="Расчитать" Background="#549438" FontSize="13" Click="buttonClick" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Bottom" IsDefault="True" Grid.Column="0" Grid.Row="5"/>
     </Grid>

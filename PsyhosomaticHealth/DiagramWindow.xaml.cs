@@ -35,6 +35,9 @@ namespace PsyhosomaticHealth
 			}
 			plotModel.Series.Add(series);
 
+			plotModel.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Bottom, Title = "Время" });
+			plotModel.Axes.Add(new OxyPlot.Axes.LinearAxis { Position = OxyPlot.Axes.AxisPosition.Left, Title = "Пульс" });
+
 			diagram.Model = plotModel;
 		}
 	}
